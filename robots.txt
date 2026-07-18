@@ -1,4 +1,5 @@
 User-agent: *
+
 Allow: /
 
-Sitemap: https://oraclesupportcentre.com/sitemap.xml
+Sitemap: https://oraclesc.github.io/the-oracles-support-centre/sitemap.xml
