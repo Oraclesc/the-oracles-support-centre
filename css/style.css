@@ -61,7 +61,7 @@ img {
     position: absolute;
     z-index: -1;
 
-    top: 70px;
+    top: 100px;
     right: 2vw;
 
     width: clamp(130px, 18vw, 250px);
