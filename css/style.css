@@ -4592,3 +4592,13 @@ main > section:last-child {
         object-fit: contain;
     }
 }
+.guides-page .about-section,
+.about-page .about-section {
+    height: auto !important;
+    min-height: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.about-page .about-content {
+    gap: 24px !important;
+}
