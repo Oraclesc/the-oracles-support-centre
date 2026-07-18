@@ -3329,8 +3329,15 @@ nav a:focus-visible {
    SECTION SPACING
 ========================================= */
 
-main section {
+main > section {
     margin-bottom: clamp(42px, 7vw, 90px);
+}
+.about-content {
+    margin-bottom: 30px;
+}
+
+.about-content .about-section {
+    margin-bottom: 0;
 }
 
 .reading-result,
@@ -4591,14 +4598,4 @@ main > section:last-child {
         height: 100%;
         object-fit: contain;
     }
-}
-.guides-page .about-section,
-.about-page .about-section {
-    height: auto !important;
-    min-height: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-.about-page .about-content {
-    gap: 24px !important;
 }
