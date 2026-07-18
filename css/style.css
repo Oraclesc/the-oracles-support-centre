@@ -62,7 +62,7 @@ img {
     z-index: -1;
 
     top: 130px;
-    right: 2vw;
+    right: 3vw;
 
     width: clamp(130px, 18vw, 250px);
 
@@ -536,7 +536,7 @@ footer {
 
     .moon {
         top: 135px;
-        right: -25px;
+        right: -15px;
 
         opacity: 0.45;
     }
@@ -2783,7 +2783,7 @@ Keep the actual website above the animated background.
                 0 0 48px rgba(168, 101, 205, 0.32)
             );
 
-        transform: scale(1.025);
+        transform: scale(1.015);
     }
 
 }
