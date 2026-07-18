@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Draw a free tarot card for general, love, career or personal growth guidance."
+    >
+
+    <title>
+        Free Tarot Reading | The Oracle's Support Centre
+    </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="page">
+
+        <img
+            class="moon"
+            src="images/moon.png"
+            alt=""
+            aria-hidden="true"
+        >
+
+        <header class="site-header">
+
+            <a class="logo" href="index.html">
+                ☾ The Oracle's Support Centre
+            </a>
+
+            <nav aria-label="Main navigation">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a
+                    href="reading.html"
+                    class="current-page"
+                    aria-current="page"
+                >
+                    Free Reading
+                </a>
+
+                <a href="cards.html">
+                    Tarot Cards
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+            </nav>
+
+        </header>
+
+        <main>
+
+            <section class="reading-page-introduction">
+
+                <p class="eyebrow">
+                    A moment of guidance
+                </p>
+
+                <h1>
+                    Free Tarot Reading
+                </h1>
+
+                <p>
+                    Take a slow breath and think about what you would
+                    like guidance on.
+                </p>
+
+                <p>
+                    Choose a reading type, focus on your question and
+                    draw one card when you feel ready.
+                </p>
+
+            </section>
+
+            <section
+                id="reading"
+                class="reading-area reading-page-area"
+            >
+
+                <div class="reading-heading">
+
+                    <h2>
+                        Choose Your Reading
+                    </h2>
+
+                    <p>
+                        Select the area you would like to reflect on.
+                    </p>
+
+                    <div class="reading-types">
+
+                        <button
+                            class="type-button active"
+                            data-type="general"
+                            type="button"
+                        >
+                            🔮 General
+                        </button>
+
+                        <button
+                            class="type-button"
+                            data-type="love"
+                            type="button"
+                        >
+                            ❤️ Love
+                        </button>
+
+                        <button
+                            class="type-button"
+                            data-type="career"
+                            type="button"
+                        >
+                            💼 Career
+                        </button>
+
+                        <button
+                            class="type-button"
+                            data-type="growth"
+                            type="button"
+                        >
+                            🌱 Personal Growth
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="tarot-table">
+
+                    <p class="reading-instruction">
+                        Hold your question in your mind, then draw your card.
+                    </p>
+
+                    <div
+                        class="card"
+                        aria-label="Tarot card"
+                    >
+
+                        <div class="card-inner">
+
+                            <div class="card-face card-cover">
+
+                                <img
+                                    id="card-cover-image"
+                                    src="images/card-back.png"
+                                    alt="Tarot card back"
+                                >
+
+                            </div>
+
+                            <div class="card-face card-reveal">
+
+                                <img
+                                    id="card-image"
+                                    alt=""
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        id="draw-card"
+                        class="primary-button draw-button"
+                        type="button"
+                    >
+                        Draw Your Card
+                    </button>
+
+                    <p
+                        id="shuffle-message"
+                        class="shuffle-message"
+                        aria-live="polite"
+                    ></p>
+
+                    <div
+                        id="reading-result"
+                        class="reading-result"
+                        aria-live="polite"
+                    >
+
+                        <p id="card-orientation"></p>
+
+                        <h3 id="card-name"></h3>
+
+                        <p id="card-category"></p>
+
+                        <p id="card-keywords"></p>
+
+                        <p id="card-message"></p>
+
+                    </div>
+                    
+
+                </div>
+                <div
+    id="reading-advertisement"
+    class="reading-advertisement"
+    aria-label="Advertisement"
+>
+
+    <p class="advertisement-label">
+        Advertisement
+    </p>
+
+    <div class="advertisement-slot advertisement-reading">
+
+        <p>
+            Advertising space
+        </p>
+
+    </div>
+
+</div>
+                
+
+                <div class="reading-guidance">
+
+                    <h2>
+                        How to Approach Your Reading
+                    </h2>
+
+                    <div class="guidance-grid">
+
+                        <article>
+
+                            <span>1</span>
+
+                            <h3>
+                                Pause
+                            </h3>
+
+                            <p>
+                                Take a moment to settle your thoughts
+                                before drawing.
+                            </p>
+
+                        </article>
+
+                        <article>
+
+                            <span>2</span>
+
+                            <h3>
+                                Focus
+                            </h3>
+
+                            <p>
+                                Hold one subject or question clearly
+                                in your mind.
+                            </p>
+
+                        </article>
+
+                        <article>
+
+                            <span>3</span>
+
+                            <h3>
+                                Reflect
+                            </h3>
+
+                            <p>
+                                Consider how the card’s themes connect
+                                with your situation.
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer>
+
+            <p>
+                Tarot readings are for reflection and entertainment.
+            </p>
+
+        </footer>
+
+    </div>
+
+    <script src="data/tarot-data.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
