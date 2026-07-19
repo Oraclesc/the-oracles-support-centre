@@ -77,7 +77,13 @@
 </url>
     <url>
     <loc>https://oraclesupportcentre.com/daily-tarot-practice.html</loc>
-    <lastmod>2026-07-18</lastmod>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+</url>
+     <url>
+    <loc>https://oraclesupportcentre.com/choosing-your-first-tarot-deck.html</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
 </url>
