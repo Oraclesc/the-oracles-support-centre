@@ -4599,3 +4599,162 @@ main > section:last-child {
         object-fit: contain;
     }
 }
+/* =========================================
+   GUIDE NAVIGATION
+========================================= */
+
+.guide-navigation {
+    width: min(100%, 960px);
+    margin: 3rem auto 1rem;
+}
+
+.related-guides {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.related-guides h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.related-guides-introduction {
+    max-width: 650px;
+    margin: 0 auto 1.5rem;
+    text-align: center;
+    opacity: 0.85;
+}
+
+.related-guides-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.related-guide-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    color: inherit;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.16);
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.related-guide-card:hover,
+.related-guide-card:focus-visible {
+    transform: translateY(-3px);
+    border-color: rgba(255, 215, 140, 0.45);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.related-guide-icon {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-size: 1.6rem;
+}
+
+.related-guide-card h3 {
+    margin: 0 0 0.6rem;
+    font-family: "Cinzel", serif;
+    font-size: 1rem;
+}
+
+.related-guide-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.82;
+}
+
+.previous-next-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.guide-navigation-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 110px;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    color: inherit;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.04);
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.guide-navigation-link:hover,
+.guide-navigation-link:focus-visible {
+    transform: translateY(-3px);
+    border-color: rgba(255, 215, 140, 0.45);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.guide-navigation-link.next {
+    text-align: right;
+}
+
+.guide-navigation-direction {
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.65;
+}
+
+.guide-navigation-title {
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.guide-navigation-link.single-next {
+    grid-column: 2;
+}
+
+.guide-navigation-link.single-previous {
+    grid-column: 1;
+}
+
+@media (max-width: 760px) {
+
+    .related-guides {
+        padding: 1.4rem;
+    }
+
+    .related-guides-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .previous-next-navigation {
+        grid-template-columns: 1fr;
+    }
+
+    .guide-navigation-link,
+    .guide-navigation-link.next {
+        min-height: auto;
+        text-align: left;
+    }
+
+    .guide-navigation-link.single-next,
+    .guide-navigation-link.single-previous {
+        grid-column: 1;
+    }
+}
