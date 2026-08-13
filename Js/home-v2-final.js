@@ -61,17 +61,10 @@
     colourEl.textContent = colour;
     promptEl.textContent = prompt;
 
-    if (imageEl && card.file) {
-        imageEl.alt = `${card.name} tarot card`;
-
-        imageEl.src = `images/${card.file}`;
-        imageEl.onerror = () => {
-            if (!imageEl.dataset.fallbackUsed) {
-                imageEl.dataset.fallbackUsed = "true";
-                imageEl.src = `images/cards/${card.file}`;
-            }
-        };
-    }
+  if (imageEl && card.file) {
+    imageEl.alt = `${card.name} tarot card`;
+    imageEl.src = `images/cards/${card.file}`;
+}
 
     if (linkEl) {
         linkEl.href = "cards.html";
