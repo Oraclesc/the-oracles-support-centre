@@ -414,16 +414,3 @@
     .v2-real-moon {
         width: min(260px, 68vw);
     }
-}
-/* Remove the old small moon */
-.v2-moon,
-.hero-moon,
-.moon,
-.moon-img {
-    display: none !important;
-}
-
-/* But keep our new realistic moon visible */
-.v2-real-moon {
-    display: block !important;
-}
