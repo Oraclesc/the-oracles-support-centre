@@ -361,3 +361,57 @@
         min-height: auto;
     }
 }
+/* =========================================================
+   HERO VISUAL - REALISTIC MOON
+   ========================================================= */
+
+.v2-hero-visual {
+    position: relative;
+    min-height: 440px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hide old generated moon/card artwork if any remains */
+.v2-moon-orbit,
+.v2-card-fan {
+    display: none !important;
+}
+
+/* Real moon */
+.v2-real-moon {
+    display: block;
+    width: min(420px, 78vw);
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.97;
+
+    filter:
+        drop-shadow(0 0 24px rgba(255, 230, 180, 0.20))
+        drop-shadow(0 0 55px rgba(120, 90, 170, 0.14));
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .v2-hero-visual {
+        min-height: 330px;
+    }
+
+    .v2-real-moon {
+        width: min(330px, 70vw);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .v2-hero-visual {
+        min-height: 250px;
+        margin-top: 20px;
+    }
+
+    .v2-real-moon {
+        width: min(260px, 68vw);
+    }
+}
