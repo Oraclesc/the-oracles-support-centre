@@ -4838,3 +4838,113 @@ main > section:last-child {
     }
 
 }
+/* =========================================
+   CARD GUIDE NAVIGATION
+   ========================================= */
+
+.card-library-navigation {
+    max-width: 904px;
+    margin: 0 auto 34px;
+    padding: 28px 30px;
+
+    text-align: center;
+
+    border: 1px solid rgba(232, 199, 119, 0.28);
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34, 14, 47, 0.78),
+            rgba(11, 4, 18, 0.88)
+        );
+
+    box-shadow:
+        0 15px 34px rgba(0, 0, 0, 0.22);
+}
+
+.card-library-navigation h2 {
+    margin: 0 0 10px;
+
+    color: #ecd79f;
+
+    font-family: "Cinzel", serif;
+}
+
+.card-library-navigation > p {
+    max-width: 700px;
+    margin: 0 auto 22px;
+
+    color: rgba(255, 255, 255, 0.72);
+
+    line-height: 1.7;
+}
+
+.card-guide-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 12px;
+}
+
+.card-guide-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 145px;
+    padding: 11px 20px;
+
+    border: 1px solid rgba(210, 165, 55, 0.65);
+    border-radius: 30px;
+
+    background: rgba(43, 20, 58, 0.75);
+
+    color: #f0c75e;
+
+    font-family: "Cinzel", serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.card-guide-link:hover {
+    background: rgba(100, 55, 120, 0.8);
+
+    border-color: #f0c75e;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================
+   MOBILE CARD GUIDE NAVIGATION
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .card-library-navigation {
+        padding: 24px 18px;
+    }
+
+    .card-guide-links {
+        flex-direction: column;
+    }
+
+    .card-guide-link {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+}
