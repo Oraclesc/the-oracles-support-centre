@@ -2,131 +2,141 @@
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-<url>
-    <loc>https://oraclesupportcentre.com/</loc>
-</url>
+    <url>
+        <loc>https://oraclesupportcentre.com/</loc>
+    </url>
 
-<url>
-    <loc>https://oraclesupportcentre.com/reading.html</loc>
-</url>
+    <url>
+        <loc>https://oraclesupportcentre.com/reading.html</loc>
+    </url>
 
-<url>
-    <loc>https://oraclesupportcentre.com/cards.html</loc>
-</url>
+    <url>
+        <loc>https://oraclesupportcentre.com/cards.html</loc>
+    </url>
 
-<url>
-    <loc>https://oraclesupportcentre.com/about.html</loc>
-</url>
+    <url>
+        <loc>https://oraclesupportcentre.com/guides.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
 
-<url>
-    <loc>https://oraclesupportcentre.com/privacy.html</loc>
-</url>
+    <url>
+        <loc>https://oraclesupportcentre.com/how-to-read-tarot.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
 
-<url>
-    <loc>https://oraclesupportcentre.com/disclaimer.html</loc>
-</url>
+    <url>
+        <loc>https://oraclesupportcentre.com/major-arcana.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
 
-<url>
-    <loc>https://oraclesupportcentre.com/terms.html</loc>
-</url>
+    <url>
+        <loc>https://oraclesupportcentre.com/minor-arcana.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
 
-<url>
-    <loc>https://oraclesupportcentre.com/cookies.html</loc>
-</url>
-<url>
-    <loc>https://oraclesupportcentre.com/contact.html</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-</url>
+    <!-- Minor Arcana Suits -->
+
     <url>
-    <loc>https://oraclesupportcentre.com/guides.html</loc>
-    <lastmod>2026-08-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/cups.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/how-to-read-tarot.html</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/pentacles.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/major-arcana.html</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/swords.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/minor-arcana.html</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/wands.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
+    <!-- Tarot Guides -->
+
     <url>
-    <loc>https://oraclesupportcentre.com/tarot-spreads.html</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/tarot-spreads.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/tarot-questions.html</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
-     <url>
-    <loc>https://oraclesupportcentre.com/tarot-symbolism.html</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/tarot-questions.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/daily-tarot-practice.html</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
-     <url>
-    <loc>https://oraclesupportcentre.com/choosing-your-first-tarot-deck.html</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/tarot-symbolism.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/common-tarot-mistakes.html</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/daily-tarot-practice.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/reversed-tarot-cards.html</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/choosing-your-first-tarot-deck.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/keeping-a-tarot-journal.html</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/common-tarot-mistakes.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/tarot-card-combinations.html</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/reversed-tarot-cards.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/tarot-myths-vs-facts.html</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/keeping-a-tarot-journal.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
     <url>
-    <loc>https://oraclesupportcentre.com/trusting-your-tarot-intuition.html</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://oraclesupportcentre.com/tarot-card-combinations.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
+    <url>
+        <loc>https://oraclesupportcentre.com/tarot-myths-vs-facts.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
+    <url>
+        <loc>https://oraclesupportcentre.com/trusting-your-tarot-intuition.html</loc>
+        <lastmod>2026-08-20</lastmod>
+    </url>
+
+    <!-- Site information -->
+
+    <url>
+        <loc>https://oraclesupportcentre.com/about.html</loc>
+    </url>
+
+    <url>
+        <loc>https://oraclesupportcentre.com/contact.html</loc>
+    </url>
+
+    <url>
+        <loc>https://oraclesupportcentre.com/privacy.html</loc>
+    </url>
+
+    <url>
+        <loc>https://oraclesupportcentre.com/cookies.html</loc>
+    </url>
+
+    <url>
+        <loc>https://oraclesupportcentre.com/terms.html</loc>
+    </url>
+
+    <url>
+        <loc>https://oraclesupportcentre.com/disclaimer.html</loc>
+    </url>
+
 </urlset>
