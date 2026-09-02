@@ -4,44 +4,41 @@
    PAGE ELEMENTS
 ========================== */
 
-const tarotGrid =
-    document.getElementById("tarot-grid");
+const tarotGrid = document.getElementById("tarot-grid");
+const cardSearch = document.getElementById("card-search");
+const filterButtons = document.querySelectorAll(".filter-button");
+const cardCount = document.getElementById("card-count");
+const noCardResults = document.getElementById("no-card-results");
+const cardModal = document.getElementById("card-modal");
+const closeModalButton = document.getElementById("close-modal");
+const modalCardImage = document.getElementById("modal-card-image");
+const modalCardName = document.getElementById("modal-card-name");
+const modalCardGroup = document.getElementById("modal-card-group");
+const modalCardKeywords = document.getElementById("modal-card-keywords");
+const modalUpright = document.getElementById("modal-upright");
+const modalReversed = document.getElementById("modal-reversed");
+const modalCardInformation = document.querySelector(".modal-card-information");
 
-const cardSearch =
-    document.getElementById("card-search");
 
-const filterButtons =
-    document.querySelectorAll(".filter-button");
+/* ==========================
+   FULL GUIDE LINK
+========================== */
 
-const cardCount =
-    document.getElementById("card-count");
+const modalFullGuide = document.createElement("a");
 
-const noCardResults =
-    document.getElementById("no-card-results");
+modalFullGuide.className = "primary-button";
+modalFullGuide.textContent = "Read Full Guide →";
+modalFullGuide.href = "#";
+modalFullGuide.setAttribute("aria-label", "Read the full tarot card guide");
 
-const cardModal =
-    document.getElementById("card-modal");
+modalFullGuide.style.display = "inline-block";
+modalFullGuide.style.marginTop = "18px";
+modalFullGuide.style.textDecoration = "none";
+modalFullGuide.style.textAlign = "center";
 
-const closeModalButton =
-    document.getElementById("close-modal");
-
-const modalCardImage =
-    document.getElementById("modal-card-image");
-
-const modalCardName =
-    document.getElementById("modal-card-name");
-
-const modalCardGroup =
-    document.getElementById("modal-card-group");
-
-const modalCardKeywords =
-    document.getElementById("modal-card-keywords");
-
-const modalUpright =
-    document.getElementById("modal-upright");
-
-const modalReversed =
-    document.getElementById("modal-reversed");
+if (modalCardInformation) {
+    modalCardInformation.appendChild(modalFullGuide);
+}
 
 
 /* ==========================
@@ -49,9 +46,7 @@ const modalReversed =
 ========================== */
 
 let currentFilter = "all";
-
 let currentSearch = "";
-
 let lastFocusedElement = null;
 
 
@@ -84,75 +79,42 @@ function displayCards(cardsToDisplay) {
 
     cardsToDisplay.forEach(function (tarotCard) {
 
-        const cardGroup =
-            getCardGroup(tarotCard);
-
-        const cardButton =
-            document.createElement("button");
+        const cardGroup = getCardGroup(tarotCard);
+        const cardButton = document.createElement("button");
 
         cardButton.type = "button";
-
-        cardButton.className =
-            "library-card";
-
-        cardButton.dataset.cardName =
-            tarotCard.name;
-
+        cardButton.className = "library-card";
+        cardButton.dataset.cardName = tarotCard.name;
         cardButton.setAttribute(
             "aria-label",
             "Read the meaning of " + tarotCard.name
         );
 
-        const image =
-            document.createElement("img");
+        const image = document.createElement("img");
 
-        image.src =
-            "images/cards/" + tarotCard.file;
+        image.src = "images/cards/" + tarotCard.file;
+        image.alt = tarotCard.name;
+        image.loading = "lazy";
 
-        image.alt =
-            tarotCard.name;
+        const information = document.createElement("span");
+        information.className = "library-card-information";
 
-        image.loading =
-            "lazy";
+        const group = document.createElement("span");
+        group.className = "library-card-group";
+        group.textContent = formatGroupName(cardGroup);
 
-        const information =
-            document.createElement("span");
-
-        information.className =
-            "library-card-information";
-
-        const group =
-            document.createElement("span");
-
-        group.className =
-            "library-card-group";
-
-        group.textContent =
-            formatGroupName(cardGroup);
-
-        const name =
-            document.createElement("span");
-
-        name.className =
-            "library-card-name";
-
-        name.textContent =
-            tarotCard.name;
+        const name = document.createElement("span");
+        name.className = "library-card-name";
+        name.textContent = tarotCard.name;
 
         information.appendChild(group);
         information.appendChild(name);
-
         cardButton.appendChild(image);
         cardButton.appendChild(information);
 
-        cardButton.addEventListener(
-            "click",
-            function () {
-
-                openCardModal(tarotCard);
-
-            }
-        );
+        cardButton.addEventListener("click", function () {
+            openCardModal(tarotCard);
+        });
 
         tarotGrid.appendChild(cardButton);
 
@@ -169,8 +131,7 @@ function displayCards(cardsToDisplay) {
 
 function getCardGroup(tarotCard) {
 
-    const filename =
-        tarotCard.file.toLowerCase();
+    const filename = tarotCard.file.toLowerCase();
 
     if (filename.startsWith("cups")) {
         return "cups";
@@ -203,10 +164,24 @@ function formatGroupName(group) {
         return "Major Arcana";
     }
 
-    return (
-        group.charAt(0).toUpperCase() +
-        group.slice(1)
-    );
+    return group.charAt(0).toUpperCase() + group.slice(1);
+
+}
+
+
+/* ==========================
+   CARD GUIDE URL
+========================== */
+
+function getCardGuideUrl(tarotCard) {
+
+    const slug = tarotCard.name
+        .toLowerCase()
+        .replace(/[’']/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+    return slug + ".html";
 
 }
 
@@ -215,19 +190,12 @@ function formatGroupName(group) {
    SEARCH
 ========================== */
 
-cardSearch.addEventListener(
-    "input",
-    function () {
+cardSearch.addEventListener("input", function () {
 
-        currentSearch =
-            cardSearch.value
-                .trim()
-                .toLowerCase();
+    currentSearch = cardSearch.value.trim().toLowerCase();
+    filterCards();
 
-        filterCards();
-
-    }
-);
+});
 
 
 /* ==========================
@@ -236,29 +204,17 @@ cardSearch.addEventListener(
 
 filterButtons.forEach(function (button) {
 
-    button.addEventListener(
-        "click",
-        function () {
+    button.addEventListener("click", function () {
 
-            filterButtons.forEach(
-                function (filterButton) {
+        filterButtons.forEach(function (filterButton) {
+            filterButton.classList.remove("active");
+        });
 
-                    filterButton.classList.remove(
-                        "active"
-                    );
+        button.classList.add("active");
+        currentFilter = button.dataset.filter;
+        filterCards();
 
-                }
-            );
-
-            button.classList.add("active");
-
-            currentFilter =
-                button.dataset.filter;
-
-            filterCards();
-
-        }
-    );
+    });
 
 });
 
@@ -269,41 +225,31 @@ filterButtons.forEach(function (button) {
 
 function filterCards() {
 
-    const filteredCards =
-        tarotCards.filter(function (tarotCard) {
+    const filteredCards = tarotCards.filter(function (tarotCard) {
 
-            const cardGroup =
-                getCardGroup(tarotCard);
+        const cardGroup = getCardGroup(tarotCard);
 
-            const matchesGroup =
-                currentFilter === "all" ||
-                cardGroup === currentFilter;
+        const matchesGroup =
+            currentFilter === "all" ||
+            cardGroup === currentFilter;
 
-            const searchableText =
-                (
-                    tarotCard.name +
-                    " " +
-                    tarotCard.category +
-                    " " +
-                    tarotCard.keywords.join(" ")
-                ).toLowerCase();
+        const searchableText = (
+            tarotCard.name +
+            " " +
+            tarotCard.category +
+            " " +
+            tarotCard.keywords.join(" ")
+        ).toLowerCase();
 
-            const matchesSearch =
-                searchableText.includes(
-                    currentSearch
-                );
+        const matchesSearch =
+            searchableText.includes(currentSearch);
 
-            return (
-                matchesGroup &&
-                matchesSearch
-            );
+        return matchesGroup && matchesSearch;
 
-        });
+    });
 
     displayCards(filteredCards);
-
-    noCardResults.hidden =
-        filteredCards.length !== 0;
+    noCardResults.hidden = filteredCards.length !== 0;
 
 }
 
@@ -315,18 +261,12 @@ function filterCards() {
 function updateResultCount(numberOfCards) {
 
     if (numberOfCards === 1) {
-
-        cardCount.textContent =
-            "Showing 1 tarot card.";
-
+        cardCount.textContent = "Showing 1 tarot card.";
         return;
-
     }
 
     cardCount.textContent =
-        "Showing " +
-        numberOfCards +
-        " tarot cards.";
+        "Showing " + numberOfCards + " tarot cards.";
 
 }
 
@@ -337,39 +277,28 @@ function updateResultCount(numberOfCards) {
 
 function openCardModal(tarotCard) {
 
-    lastFocusedElement =
-        document.activeElement;
+    lastFocusedElement = document.activeElement;
 
-    const group =
-        getCardGroup(tarotCard);
+    const group = getCardGroup(tarotCard);
 
     modalCardImage.src =
-        "images/cards/" +
-        tarotCard.file;
+        "images/cards/" + tarotCard.file;
 
-    modalCardImage.alt =
-        tarotCard.name;
+    modalCardImage.alt = tarotCard.name;
+    modalCardName.textContent = tarotCard.name;
+    modalCardGroup.textContent = formatGroupName(group);
+    modalCardKeywords.textContent = tarotCard.keywords.join(" • ");
+    modalUpright.textContent = tarotCard.upright;
+    modalReversed.textContent = tarotCard.reversed;
 
-    modalCardName.textContent =
-        tarotCard.name;
-
-    modalCardGroup.textContent =
-        formatGroupName(group);
-
-    modalCardKeywords.textContent =
-        tarotCard.keywords.join(" • ");
-
-    modalUpright.textContent =
-        tarotCard.upright;
-
-    modalReversed.textContent =
-        tarotCard.reversed;
+    modalFullGuide.href = getCardGuideUrl(tarotCard);
+    modalFullGuide.setAttribute(
+        "aria-label",
+        "Read the full guide for " + tarotCard.name
+    );
 
     cardModal.hidden = false;
-
-    document.body.classList.add(
-        "modal-open"
-    );
+    document.body.classList.add("modal-open");
 
     closeModalButton.focus();
 
@@ -383,17 +312,11 @@ function openCardModal(tarotCard) {
 function closeCardModal() {
 
     cardModal.hidden = true;
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
+    document.body.classList.remove("modal-open");
     modalCardImage.removeAttribute("src");
 
     if (lastFocusedElement) {
-
         lastFocusedElement.focus();
-
     }
 
 }
@@ -403,40 +326,20 @@ function closeCardModal() {
    MODAL EVENTS
 ========================== */
 
-closeModalButton.addEventListener(
-    "click",
-    closeCardModal
-);
+closeModalButton.addEventListener("click", closeCardModal);
 
-cardModal.addEventListener(
-    "click",
-    function (event) {
+cardModal.addEventListener("click", function (event) {
 
-        if (
-            event.target.hasAttribute(
-                "data-close-modal"
-            )
-        ) {
-
-            closeCardModal();
-
-        }
-
+    if (event.target.hasAttribute("data-close-modal")) {
+        closeCardModal();
     }
-);
 
-document.addEventListener(
-    "keydown",
-    function (event) {
+});
 
-        if (
-            event.key === "Escape" &&
-            !cardModal.hidden
-        ) {
+document.addEventListener("keydown", function (event) {
 
-            closeCardModal();
-
-        }
-
+    if (event.key === "Escape" && !cardModal.hidden) {
+        closeCardModal();
     }
-);
+
+});
