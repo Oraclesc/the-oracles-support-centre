@@ -1,152 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    <url>
-        <loc>https://oraclesupportcentre.com/</loc>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/reading.html</loc>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/cards.html</loc>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/guides.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/how-to-read-tarot.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/major-arcana.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/minor-arcana.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <!-- Minor Arcana Suits -->
-
-    <url>
-        <loc>https://oraclesupportcentre.com/cups.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/pentacles.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/swords.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/wands.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <!-- Tarot Guides -->
-
-    <url>
-        <loc>https://oraclesupportcentre.com/tarot-spreads.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/tarot-questions.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/tarot-symbolism.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/daily-tarot-practice.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/choosing-your-first-tarot-deck.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/common-tarot-mistakes.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/reversed-tarot-cards.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/keeping-a-tarot-journal.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/tarot-card-combinations.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/tarot-myths-vs-facts.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/trusting-your-tarot-intuition.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/how-to-interpret-tarot.html</loc>
-        <lastmod>2026-08-20</lastmod>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/tarot-reading-examples.html</loc>
-        <lastmod>2026-08-21</lastmod>
-    </url>
-
-    <!-- Site information -->
-
-    <url>
-        <loc>https://oraclesupportcentre.com/about.html</loc>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/contact.html</loc>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/privacy.html</loc>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/cookies.html</loc>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/terms.html</loc>
-    </url>
-
-    <url>
-        <loc>https://oraclesupportcentre.com/disclaimer.html</loc>
-    </url>
-
+  <url><loc>https://oraclesupportcentre.com//</loc></url>
+  <url><loc>https://oraclesupportcentre.com/reading.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/cards.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/guides.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/how-to-read-tarot.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/major-arcana.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/minor-arcana.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/tarot-spreads.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/tarot-questions.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/tarot-symbolism.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/daily-tarot-practice.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/choosing-your-first-tarot-deck.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/common-tarot-mistakes.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/reversed-tarot-cards.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/keeping-a-tarot-journal.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/tarot-card-combinations.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/tarot-myths-vs-facts.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/trusting-your-tarot-intuition.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/how-to-interpret-tarot.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/tarot-reading-examples.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/about.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/contact.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/privacy.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/cookies.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/terms.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/disclaimer.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/ace-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/ace-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/ace-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/ace-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/death.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/eight-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/eight-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/eight-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/eight-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/five-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/five-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/five-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/five-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/four-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/four-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/four-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/four-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/judgement.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/justice.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/king-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/king-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/king-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/king-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/knight-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/knight-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/knight-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/knight-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/nine-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/nine-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/nine-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/nine-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/page-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/page-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/page-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/page-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/queen-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/queen-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/queen-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/queen-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/seven-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/seven-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/seven-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/seven-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/six-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/six-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/six-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/six-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/strength.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/temperance.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/ten-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/ten-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/ten-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/ten-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-chariot.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-devil.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-emperor.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-empress.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-fool.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-hanged-man.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-hermit.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-hierophant.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-high-priestess.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-lovers.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-magician.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-moon.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-star.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-sun.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-tower.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/the-world.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/three-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/three-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/three-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/three-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/two-of-cups.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/two-of-pentacles.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/two-of-swords.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/two-of-wands.html</loc></url>
+  <url><loc>https://oraclesupportcentre.com/wheel-of-fortune.html</loc></url>
 </urlset>
