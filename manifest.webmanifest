@@ -1,0 +1,11 @@
+{
+  "name":"The Oracle's Support Centre",
+  "short_name":"Oracle Support",
+  "start_url":"/index.html",
+  "scope":"/",
+  "display":"standalone",
+  "background_color":"#090313",
+  "theme_color":"#170629",
+  "description":"Free tarot readings, card meanings, guides and reflection tools.",
+  "icons":[{"src":"/images/moon.webp","sizes":"512x512","type":"image/webp","purpose":"any maskable"}]
+}
