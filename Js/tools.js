@@ -1,17 +1,47 @@
 "use strict";
-/* Shared interactive tools */
-if(!document.querySelector('script[src*="adsbygoogle.js"]')){const a=document.createElement("script");a.async=true;a.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2517381819553976";a.crossOrigin="anonymous";document.head.appendChild(a)}
+/* Shared tarot engine — drawing and card lookup only.
+   Page-specific behaviour lives in phase12.js and phase3.js. */
+if(!document.querySelector('script[src*="adsbygoogle.js"]')){
+  const ads=document.createElement("script");
+  ads.async=true;
+  ads.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2517381819553976";
+  ads.crossOrigin="anonymous";
+  document.head.appendChild(ads);
+}
+
 const slug=n=>n.toLowerCase().replace(/the /g,"the-").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+".html";
-const getCard=n=>tarotCards.find(c=>c.name===n),url=c=>c?slug(c.name):"#",img=c=>c?"images/cards/"+c.file:"";
-const draw=(allowReverse=true,n=1)=>[...tarotCards].sort(()=>Math.random()-.5).slice(0,n).map(c=>({...c,isReversed:allowReverse&&Math.random()<.35}));
-function result(c,label){return `<article class="result-card"><div class="mini-card"><img src="${img(c)}" alt="${c.name}"><div><span class="pill">${label||"Card"}</span><span class="pill">${c.isReversed?"Reversed":"Upright"}</span><h2>${c.name}</h2><p>${c.isReversed?c.reversed:c.upright}</p><p><strong>Keywords:</strong> ${(c.keywords||[]).join(" • ")}</p><a class="tool-link" href="${url(c)}">Read the full guide →</a><br><button class="secondary-button" data-fav="${c.name}">☆ Save favourite</button></div></div></article>`}
-function favs(root=document){root.querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{let a=JSON.parse(localStorage.getItem("oracleFavourites")||"[]"),n=b.dataset.fav;a=a.includes(n)?a.filter(x=>x!==n):[...a,n];localStorage.setItem("oracleFavourites",JSON.stringify(a));b.textContent=a.includes(n)?"★ Favourite":"☆ Save favourite"})}
-const r=document.getElementById("reading-v2");if(r){let mode="one",buttons=r.querySelectorAll("[data-reading-mode]"),out=r.querySelector("#reading-v2-results");buttons.forEach(b=>b.onclick=()=>{mode=b.dataset.readingMode;buttons.forEach(x=>x.classList.toggle("active",x===b))});r.querySelector("#reading-v2-draw").onclick=()=>{let a=draw(r.querySelector("#reading-v2-reversals").checked,mode==="three"?3:1),labels=mode==="three"?["Past","Present","Future"]:["Your card"];out.innerHTML='<div class="notice">Use this reading as a prompt for reflection, not a fixed prediction. Your choices still matter.</div><div class="card-result-grid">'+a.map((c,i)=>result(c,labels[i])).join("")+'</div>';favs(out)}}
-const d=document.getElementById("card-of-the-day");if(d){let now=new Date();now.setHours(12,0,0,0);now.setDate(now.getDate()+Number(d.dataset.offset||0));let key=now.toISOString().slice(0,10),h=[...key].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7),c=tarotCards[h%tarotCards.length],rev=h%7===0;d.querySelector("[data-cotd-date]").textContent=now.toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long",year:"numeric"});d.querySelector("[data-cotd-name]").textContent=c.name;d.querySelector("[data-cotd-image]").src=img(c);d.querySelector("[data-cotd-image]").alt=c.name;d.querySelector("[data-cotd-orientation]").textContent=rev?"Reversed":"Upright";d.querySelector("[data-cotd-meaning]").textContent=rev?c.reversed:c.upright;d.querySelector("[data-cotd-link]").href=url(c)}
-const s=document.getElementById("card-search-app");if(s){let i=s.querySelector("#card-search-input"),o=s.querySelector("#card-search-results");function run(){let q=i.value.toLowerCase().trim();if(!q){o.innerHTML='<div class="empty-state">Type a card name, suit, theme or keyword to begin.</div>';return}let a=tarotCards.filter(c=>(c.name+" "+c.category+" "+(c.keywords||[]).join(" ")+" "+c.upright+" "+c.reversed).toLowerCase().includes(q));o.innerHTML=a.length?a.map(c=>`<article class="result-card"><h2><a href="${url(c)}">${c.name}</a></h2><p>${c.category}</p><p>${c.upright}</p><p><strong>Keywords:</strong> ${(c.keywords||[]).join(" • ")}</p></article>`).join(""):'<div class="empty-state">No cards matched that search.</div>'}i.oninput=run;run()}
-const f=document.getElementById("favourites-app");if(f){function show(){let a=JSON.parse(localStorage.getItem("oracleFavourites")||"[]");f.innerHTML=a.length?a.map(n=>{let c=getCard(n);return c?`<article class="result-card"><button class="favorite-button" data-remove="${c.name}">★</button><h2><a href="${url(c)}">${c.name}</a></h2><p>${c.category}</p><p>${c.upright}</p></article>`:""}).join(""): '<div class="empty-state">You have no saved cards yet.</div>';f.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{let a=JSON.parse(localStorage.getItem("oracleFavourites")||"[]").filter(x=>x!==b.dataset.remove);localStorage.setItem("oracleFavourites",JSON.stringify(a));show()})}show()}
-const j=document.getElementById("journal-app");if(j){let key="oracleJournalEntries",form=j.querySelector("#journal-form"),list=j.querySelector("#journal-list");function show(){let a=JSON.parse(localStorage.getItem(key)||"[]");list.innerHTML=a.length?a.map((e,i)=>`<article class="journal-entry"><button class="favorite-button" data-del="${i}">×</button><h3>${e.date} · ${e.card||"Free reflection"}</h3><p><strong>Question:</strong> ${e.question||"—"}</p><p>${String(e.notes).replace(/</g,"&lt;")}</p></article>`).join(""): '<div class="empty-state">Your private journal is empty. Entries stay in this browser.</div>';list.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{let a=JSON.parse(localStorage.getItem(key)||"[]");a.splice(+b.dataset.del,1);localStorage.setItem(key,JSON.stringify(a));show()})}form.onsubmit=e=>{e.preventDefault();let x=new FormData(form),a=JSON.parse(localStorage.getItem(key)||"[]");a.unshift({date:new Date().toLocaleString(),card:x.get("card"),question:x.get("question"),notes:x.get("notes")});localStorage.setItem(key,JSON.stringify(a));form.reset();show()};let p=new URLSearchParams(location.search);if(p.get("card"))form.elements.card.value=p.get("card");show()}
-const l=document.getElementById("learn-tarot-app");if(l){let lessons=[["Foundations","Learn the 78-card structure and a grounded way to approach tarot."],["Major Arcana","Study the 22 Major Arcana as a journey of larger themes and transitions."],["Minor Arcana","Learn how suits, numbers and court cards shape everyday readings."],["Upright & Reversed","Practise context-based readings instead of treating reversed cards as automatically negative."],["Questions & Spreads","Turn vague worries into useful questions and choose an appropriate spread."],["Symbols & Intuition","Read visual details and personal associations while staying grounded."],["Practice Reading","Complete a three-card reading, journal it and revisit it later."]],done=JSON.parse(localStorage.getItem("oracleLessons")||"[]");l.querySelector("#lesson-progress").style.width=done.length/lessons.length*100+"%";l.querySelector("#lesson-list").innerHTML=lessons.map((x,i)=>`<article class="lesson-card ${done.includes(i)?"completed":""}"><h2>${i+1}. ${x[0]}</h2><p>${x[1]}</p><button class="secondary-button" data-lesson="${i}">${done.includes(i)?"Completed ✓":"Mark complete"}</button></article>`).join("");l.querySelectorAll("[data-lesson]").forEach(b=>b.onclick=()=>{let a=JSON.parse(localStorage.getItem("oracleLessons")||"[]"),i=+b.dataset.lesson;if(!a.includes(i))a.push(i);localStorage.setItem("oracleLessons",JSON.stringify(a));location.reload()})}
-const c=document.getElementById("combinations-app");if(c){let a=c.querySelector("#combo-a"),b=c.querySelector("#combo-b"),o=c.querySelector("#combo-result");[...tarotCards].sort((x,y)=>x.name.localeCompare(y.name)).forEach(x=>{a.add(new Option(x.name,x.name));b.add(new Option(x.name,x.name))});function run(){let x=getCard(a.value),y=getCard(b.value);if(!x||!y)return;let sx=x.name.includes(" of ")?x.name.split(" of ")[1]:"Major Arcana",sy=y.name.includes(" of ")?y.name.split(" of ")[1]:"Major Arcana";o.innerHTML=`<article class="result-card"><h2>${x.name} + ${y.name}</h2><p>${sx===sy?"Both cards share the same suit, so their message may reinforce a common area of life.":"These cards bring different energies together. Read the first as the starting theme and the second as the influence, response or direction that follows."}</p><p><strong>${x.name}:</strong> ${x.upright}</p><p><strong>${y.name}:</strong> ${y.upright}</p><p><strong>Reflection:</strong> What happens when these two themes speak to the same question?</p><a class="tool-link" href="${url(x)}">Read ${x.name} →</a> · <a class="tool-link" href="${url(y)}">Read ${y.name} →</a></article>`}a.onchange=run;b.onchange=run;run()}
-const q=document.getElementById("ask-tarot-app");if(q){q.querySelector("#ask-submit").onclick=()=>{let n=q.querySelector("#ask-spread").value==="three"?3:1,a=draw(true,n),labels=n===3?["What surrounds the situation","What deserves attention now","A useful direction"]:["The card to reflect on"],text=q.querySelector("#ask-question").value.trim()||"What would be useful for me to understand right now?",o=q.querySelector("#ask-result");o.innerHTML=`<article class="result-card"><h2>Your Tarot Reflection</h2><p><strong>Topic:</strong> ${q.querySelector("#ask-topic").value}</p><p><strong>Question:</strong> ${text}</p><div class="card-result-grid">${a.map((x,i)=>result(x,labels[i])).join("")}</div><div class="notice">Tarot can help you explore possibilities and patterns, but it does not determine your future.</div><p><a class="tool-link" href="tarot-journal.html?card=${encodeURIComponent(a[0].name)}">Journal about this reading →</a></p></article>`;favs(o)}}
-if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+const getCard=n=>tarotCards.find(c=>c.name===n);
+const cardUrl=c=>c?slug(c.name):"#";
+const cardImage=c=>c?"images/cards/"+c.file:"";
+const draw=(allowReverse=true,n=1)=>[...tarotCards]
+  .sort(()=>Math.random()-.5)
+  .slice(0,n)
+  .map(c=>({...c,isReversed:allowReverse&&Math.random()<.35}));
+
+/* Card Meaning Search is intentionally kept here because it is a lightweight
+   standalone tool and does not overlap with the reading/journal modules. */
+const searchRoot=document.getElementById("card-search-app");
+if(searchRoot){
+  const input=searchRoot.querySelector("#card-search-input");
+  const output=searchRoot.querySelector("#card-search-results");
+  const escSearch=s=>String(s??"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;"," ":"&gt;","\"":"&quot;"}[m]));
+  const runSearch=()=>{
+    const q=input.value.toLowerCase().trim();
+    if(!q){
+      output.innerHTML='<div class="empty-state">Type a card name, suit, theme or keyword to begin.</div>';
+      return;
+    }
+    const matches=tarotCards.filter(c=>(
+      c.name+" "+c.category+" "+(c.keywords||[]).join(" ")+" "+c.upright+" "+c.reversed
+    ).toLowerCase().includes(q));
+    output.innerHTML=matches.length
+      ?matches.map(c=>`<article class="result-card"><h2><a href="${cardUrl(c)}">${escSearch(c.name)}</a></h2><p>${escSearch(c.category)}</p><p>${escSearch(c.upright)}</p><p><strong>Keywords:</strong> ${escSearch((c.keywords||[]).join(" • "))}</p></article>`).join("")
+      :'<div class="empty-state">No cards matched that search.</div>';
+  };
+  input.oninput=runSearch;
+  runSearch();
+}
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
