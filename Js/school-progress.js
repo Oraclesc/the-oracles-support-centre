@@ -30,10 +30,13 @@
   const lesson=lessons[current];
   const studied=lesson.resources.filter(resource=>visits[resource]).length;
   const complete=completed.has(current);
+  const style=document.createElement("style");
+  style.textContent=".school-study-banner{display:flex;align-items:center;justify-content:space-between;gap:18px;width:min(100% - 32px,1120px);margin:18px auto 0;padding:13px 17px;border:1px solid rgba(212,175,55,.34);border-radius:14px;background:linear-gradient(135deg,rgba(212,175,55,.10),rgba(98,76,170,.12));box-shadow:0 8px 24px rgba(0,0,0,.16)}.school-study-banner div{display:flex;align-items:center;flex-wrap:wrap;gap:10px}.school-study-banner strong{color:#f0d77d}.school-study-banner span{color:rgba(255,255,255,.78);font-size:.9rem}.school-study-banner a{color:#f0d77d;font-weight:700;text-decoration:none;white-space:nowrap}.school-study-banner a:hover{color:#fff}@media(max-width:600px){.school-study-banner{width:calc(100% - 22px);align-items:flex-start;flex-direction:column}.school-study-banner a{white-space:normal}}";
+  document.head.appendChild(style);
   const banner=document.createElement("aside");
   banner.className="school-study-banner";
   banner.setAttribute("aria-label","Tarot School progress");
-  banner.innerHTML=`<div><strong>🎓 Tarot School · Lesson ${current+1}</strong><span>${complete?"✓ Lesson complete":"Study progress: "+studied+" of "+lesson.resources.length+" resources viewed"}</span></div><a href="learn-tarot.html">${complete?"Review your lesson →":"View your school progress →"}</a>`;
+  banner.innerHTML=`<div><strong>🎓 Tarot School · Lesson ${current+1}: ${lesson.title}</strong><span>${complete?"✓ Lesson complete":"Study progress: "+studied+" of "+lesson.resources.length+" resources viewed"}</span></div><a href="learn-tarot.html">${complete?"Review your lesson →":"View your school progress →"}</a>`;
   const main=document.querySelector("main");
   if(main)main.insertBefore(banner,main.firstElementChild);
 })();
