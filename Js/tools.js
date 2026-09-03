@@ -24,7 +24,7 @@ const searchRoot=document.getElementById("card-search-app");
 if(searchRoot){
   const input=searchRoot.querySelector("#card-search-input");
   const output=searchRoot.querySelector("#card-search-results");
-  const escSearch=s=>String(s??"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;"," ":"&gt;","\"":"&quot;"}[m]));
+  const escSearch=s=>String(s??"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]));
   const runSearch=()=>{
     const q=input.value.toLowerCase().trim();
     if(!q){
