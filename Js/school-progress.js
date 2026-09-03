@@ -25,6 +25,8 @@
     if(lesson.resources.every(resource=>visits[resource])) completed.add(index);
   });
   save("oracleLessons",[...completed].sort((a,b)=>a-b));
+  const journeyStat=document.querySelector('#journey-app [data-stat="lessons"]');
+  if(journeyStat)journeyStat.textContent=Math.min(100,Math.round(completed.size/lessons.length*100))+"%";
   const current=lessons.findIndex(lesson=>lesson.resources.includes(page));
   if(current<0)return;
   const lesson=lessons[current];
