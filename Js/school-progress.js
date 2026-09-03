@@ -21,12 +21,16 @@
   visits[page]=new Date().toISOString();
   save("oracleStudyVisits",visits);
   const completed=new Set(Array.isArray(read("oracleLessons",[]))?read("oracleLessons",[]):[]);
-  lessons.forEach((lesson,index)=>{
-    if(lesson.resources.every(resource=>visits[resource])) completed.add(index);
-  });
+  lessons.forEach((lesson,index)=>{if(lesson.resources.every(resource=>visits[resource]))completed.add(index)});
   save("oracleLessons",[...completed].sort((a,b)=>a-b));
   const journeyStat=document.querySelector('#journey-app [data-stat="lessons"]');
   if(journeyStat)journeyStat.textContent=Math.min(100,Math.round(completed.size/lessons.length*100))+"%";
+  const school=document.querySelector("#learn-tarot-app");
+  if(school){
+    const intro=school.querySelector(".tool-hero p:not(.eyebrow)");
+    if(intro)intro.textContent="Work through twelve lessons in order. Read the linked study material and your progress is recorded automatically in this browser. You can also mark a lesson complete manually when you feel ready.";
+    school.querySelectorAll(".lesson-toggle").forEach(button=>{if(!button.textContent.includes("Completed"))button.textContent="Mark Lesson Complete"});
+  }
   const current=lessons.findIndex(lesson=>lesson.resources.includes(page));
   if(current<0)return;
   const lesson=lessons[current];
