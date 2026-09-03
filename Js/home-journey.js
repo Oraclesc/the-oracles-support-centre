@@ -1,0 +1,22 @@
+(function(){
+  "use strict";
+  const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}};
+  const lessonsTotal=12;
+  const lessons=read("oracleLessons",[]);
+  const journal=read("oracleJournalEntries",[]);
+  const readings=read("oracleReadings",[]);
+  const favourites=read("oracleFavourites",[]);
+  const done=Array.isArray(lessons)?lessons.length:0;
+  const percent=Math.min(100,Math.round(done/lessonsTotal*100));
+  const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
+  const bar=document.getElementById("home-school-progress");
+  if(bar)bar.style.width=percent+"%";
+  set("home-school-percent",percent+"%");
+  set("home-school-count",done+" of "+lessonsTotal+" lessons complete");
+  set("home-journal-count",journal.length);
+  set("home-reading-count",readings.length);
+  set("home-favourite-count",favourites.length);
+  const next=Math.min(done+1,lessonsTotal);
+  const nextLabel=document.getElementById("home-next-lesson");
+  if(nextLabel)nextLabel.textContent=done>=lessonsTotal?"All 12 lessons complete — keep practising!":"Next up: Lesson "+next;
+})();
