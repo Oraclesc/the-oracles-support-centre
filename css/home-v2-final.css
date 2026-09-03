@@ -1,5 +1,113 @@
 
 /* =========================================================
+   ORACLE SUPPORT CENTRE — HOMEPAGE V2
+   This file is intentionally separate from style.css.
+   ========================================================= */
+
+.v2-hero,
+.v2-daily-card,
+.v2-guides,
+.v2-reflection {
+    width: min(1180px, calc(100% - 32px));
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.v2-hero {
+    position: relative;
+    min-height: 560px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 48px;
+    padding: 72px 0 56px;
+}
+
+.v2-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    border-radius: 32px;
+    background:
+        radial-gradient(circle at 75% 20%, rgba(239, 201, 113, 0.18), transparent 25%),
+        radial-gradient(circle at 25% 25%, rgba(98, 76, 170, 0.18), transparent 34%);
+}
+
+.v2-hero-copy { max-width: 650px; }
+
+.v2-hero h1 {
+    margin: 8px 0 20px;
+    font-size: clamp(3rem, 7vw, 5.8rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+}
+
+.v2-hero-lead { max-width: 620px; font-size: 1.12rem; line-height: 1.75; }
+
+.v2-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+
+.v2-primary,
+.v2-secondary {
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.v2-primary:hover,
+.v2-secondary:hover { transform: translateY(-3px); }
+.v2-primary:hover { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22); }
+
+.v2-trust-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.v2-trust-row span { padding: 8px 12px; border: 1px solid rgba(218,179,94,.32); border-radius: 999px; font-size: .86rem; opacity: .92; }
+
+.v2-hero-visual { position: relative; min-height: 440px; display: flex; align-items: center; justify-content: center; }
+.v2-moon-orbit, .v2-card-fan { display: none !important; }
+
+.v2-real-moon {
+    display: block;
+    width: min(420px, 78vw);
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    opacity: .97;
+    filter: drop-shadow(0 0 24px rgba(255,230,180,.20)) drop-shadow(0 0 55px rgba(120,90,170,.14));
+}
+
+.v2-daily-card {
+    display: grid;
+    grid-template-columns: 1fr 240px 1fr;
+    align-items: center;
+    gap: 28px;
+    margin-top: 18px;
+    padding: 34px;
+    border: 1px solid rgba(218,179,94,.26);
+    border-radius: 28px;
+    background: linear-gradient(135deg, rgba(22,17,49,.94), rgba(14,20,45,.94));
+    box-shadow: 0 22px 55px rgba(0,0,0,.18);
+}
+
+.v2-daily-name { margin: 8px 0; font-family: Cinzel, serif; font-size: clamp(2rem,5vw,3.2rem); }
+.v2-daily-keywords { color: #d7b76a; font-weight: 700; letter-spacing: .03em; }
+.v2-daily-message { line-height: 1.75; }
+.v2-daily-image-wrap { display: grid; place-items: center; }
+.v2-daily-image { width: 180px; max-width: 100%; border-radius: 12px; box-shadow: 0 18px 38px rgba(0,0,0,.34); }
+.v2-daily-details { display: grid; gap: 18px; }
+.v2-daily-details > div { padding-left: 18px; border-left: 1px solid rgba(218,179,94,.26); }
+.v2-detail-label { display: block; margin-bottom: 5px; color: #d7b76a; font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; }
+
+.v2-guides { padding: 76px 0 30px; }
+.v2-guide-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; margin-top: 30px; }
+.v2-guide-card { display: block; min-height: 245px; padding: 26px; border: 1px solid rgba(218,179,94,.25); border-radius: 22px; background: rgba(18,17,44,.72); text-decoration: none; transition: transform 180ms ease,border-color 180ms ease,box-shadow 180ms ease; }
+.v2-guide-card:hover { transform: translateY(-6px); border-color: rgba(218,179,94,.62); box-shadow: 0 18px 38px rgba(0,0,0,.2); }
+.v2-guide-icon { display: inline-grid; place-items: center; width: 52px; height: 52px; margin-bottom: 16px; border: 1px solid rgba(218,179,94,.45); border-radius: 50%; color: #e1bd69; font-size: 1.5rem; }
+.v2-guide-card h3 { margin: 0 0 10px; }
+.v2-guide-card p { line-height: 1.65; }
+.v2-guide-link { display: inline-block; margin-top: 8px; color: #e1bd69; font-weight: 700; }
+
+.v2-reflection { display: flex; align-items: center; justify-content: space-between; gap: 34px; margin-top: 48px; margin-bottom: 74px; padding: 34px; border: 1px solid rgba(218,179,94,.22); border-radius: 24px; background: rgba(18,17,44,.55); }
+.v2-reflection h2 { margin-top: 6px; }
+.v2-reflection p { max-width: 760px; line-height: 1.7; }
+
+/* =========================================================
    TAROT LEARNING HUB
    ========================================================= */
 
@@ -7,238 +115,66 @@
     width: min(1180px, calc(100% - 32px));
     margin: 42px auto 20px;
     padding: 46px;
-    border: 1px solid rgba(218, 179, 94, 0.34);
+    border: 1px solid rgba(218,179,94,.34);
     border-radius: 32px;
-    background:
-        radial-gradient(circle at 12% 10%, rgba(239, 201, 113, 0.14), transparent 30%),
-        radial-gradient(circle at 92% 88%, rgba(98, 76, 170, 0.18), transparent 34%),
-        linear-gradient(135deg, rgba(25, 18, 54, 0.98), rgba(12, 22, 48, 0.98));
-    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.24);
+    background: radial-gradient(circle at 12% 10%,rgba(239,201,113,.14),transparent 30%),radial-gradient(circle at 92% 88%,rgba(98,76,170,.18),transparent 34%),linear-gradient(135deg,rgba(25,18,54,.98),rgba(12,22,48,.98));
+    box-shadow: 0 26px 70px rgba(0,0,0,.24);
 }
 
-.v2-learning-heading {
-    max-width: 780px;
-    margin-bottom: 30px;
-}
-
-.v2-learning-heading h2 {
-    margin: 7px 0 12px;
-    font-size: clamp(2.1rem, 4.5vw, 3.6rem);
-    line-height: 1.05;
-}
-
-.v2-learning-heading p:last-child {
-    max-width: 720px;
-    line-height: 1.75;
-    font-size: 1.04rem;
-}
-
-.v2-learning-layout {
-    display: grid;
-    grid-template-columns: 0.95fr 1.55fr;
-    gap: 22px;
-    align-items: stretch;
-}
-
-.v2-school-progress {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 30px;
-    border: 1px solid rgba(218, 179, 94, 0.28);
-    border-radius: 24px;
-    background: rgba(8, 12, 31, 0.5);
-}
-
-.v2-school-progress-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    margin-bottom: 18px;
-}
-
-.v2-school-progress h3 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.v2-school-badge {
-    padding: 7px 11px;
-    border: 1px solid rgba(218, 179, 94, 0.42);
-    border-radius: 999px;
-    color: #e1bd69;
-    font-size: 0.78rem;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.v2-progress-track {
-    height: 12px;
-    overflow: hidden;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.09);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.v2-progress-fill {
-    width: 0;
-    height: 100%;
-    border-radius: inherit;
-    background: linear-gradient(90deg, #8e6bd1, #e1bd69);
-    transition: width 700ms ease;
-}
-
-.v2-school-progress-meta {
-    display: flex;
-    justify-content: space-between;
-    gap: 14px;
-    margin-top: 10px;
-    font-size: 0.88rem;
-    opacity: 0.84;
-}
-
-.v2-school-progress-next {
-    margin: 22px 0 0;
-    color: #e1bd69;
-    font-weight: 700;
-}
-
-.v2-learning-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 24px;
-}
-
-.v2-learning-actions a {
-    flex: 1 1 180px;
-    text-align: center;
-}
-
-.v2-learning-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 26px;
-}
-
-.v2-learning-stat {
-    padding: 13px 10px;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.045);
-    text-align: center;
-}
-
-.v2-learning-stat strong {
-    display: block;
-    font-family: Cinzel, serif;
-    font-size: 1.45rem;
-    color: #e1bd69;
-}
-
-.v2-learning-stat span {
-    display: block;
-    margin-top: 3px;
-    font-size: 0.76rem;
-    opacity: 0.78;
-}
-
-.v2-learning-cards {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-}
-
-.v2-learning-card {
-    position: relative;
-    display: flex;
-    min-height: 190px;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 24px;
-    border: 1px solid rgba(218, 179, 94, 0.24);
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.045);
-    color: inherit;
-    text-decoration: none;
-    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
-}
-
-.v2-learning-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(218, 179, 94, 0.62);
-    background: rgba(255, 255, 255, 0.075);
-}
-
-.v2-learning-card-icon {
-    display: grid;
-    place-items: center;
-    width: 48px;
-    height: 48px;
-    margin-bottom: 15px;
-    border: 1px solid rgba(218, 179, 94, 0.38);
-    border-radius: 50%;
-    color: #e1bd69;
-    font-size: 1.35rem;
-}
-
-.v2-learning-card h3 {
-    margin: 0 0 8px;
-    font-size: 1.35rem;
-}
-
-.v2-learning-card p {
-    margin: 0;
-    line-height: 1.55;
-    font-size: 0.92rem;
-    opacity: 0.88;
-}
-
-.v2-learning-card-link {
-    display: block;
-    margin-top: 16px;
-    color: #e1bd69;
-    font-size: 0.88rem;
-    font-weight: 700;
-}
-
-.v2-learning-card-wide {
-    grid-column: 1 / -1;
-    min-height: 145px;
-    background: linear-gradient(135deg, rgba(142, 107, 209, 0.13), rgba(225, 189, 105, 0.07));
-}
-
-.v2-learning-card-wide p {
-    max-width: 680px;
-}
+.v2-learning-heading { max-width: 780px; margin-bottom: 30px; }
+.v2-learning-heading h2 { margin: 7px 0 12px; font-size: clamp(2.1rem,4.5vw,3.6rem); line-height: 1.05; }
+.v2-learning-heading p:last-child { max-width: 720px; line-height: 1.75; font-size: 1.04rem; }
+.v2-learning-layout { display: grid; grid-template-columns: .95fr 1.55fr; gap: 22px; align-items: stretch; }
+.v2-school-progress { display: flex; flex-direction: column; justify-content: space-between; padding: 30px; border: 1px solid rgba(218,179,94,.28); border-radius: 24px; background: rgba(8,12,31,.5); }
+.v2-school-progress-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+.v2-school-progress h3 { margin: 0; font-size: 1.5rem; }
+.v2-school-badge { padding: 7px 11px; border: 1px solid rgba(218,179,94,.42); border-radius: 999px; color: #e1bd69; font-size: .78rem; font-weight: 700; white-space: nowrap; }
+.v2-progress-track { height: 12px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.09); box-shadow: inset 0 1px 3px rgba(0,0,0,.3); }
+.v2-progress-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#8e6bd1,#e1bd69); transition: width 700ms ease; }
+.v2-school-progress-meta { display: flex; justify-content: space-between; gap: 14px; margin-top: 10px; font-size: .88rem; opacity: .84; }
+.v2-school-progress-next { margin: 22px 0 0; color: #e1bd69; font-weight: 700; }
+.v2-learning-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.v2-learning-actions a { flex: 1 1 180px; text-align: center; }
+.v2-learning-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 26px; }
+.v2-learning-stat { padding: 13px 10px; border-radius: 15px; background: rgba(255,255,255,.045); text-align: center; }
+.v2-learning-stat strong { display: block; font-family: Cinzel,serif; font-size: 1.45rem; color: #e1bd69; }
+.v2-learning-stat span { display: block; margin-top: 3px; font-size: .76rem; opacity: .78; }
+.v2-learning-cards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.v2-learning-card { position: relative; display: flex; min-height: 190px; flex-direction: column; justify-content: space-between; padding: 24px; border: 1px solid rgba(218,179,94,.24); border-radius: 22px; background: rgba(255,255,255,.045); color: inherit; text-decoration: none; transition: transform 180ms ease,border-color 180ms ease,background 180ms ease; }
+.v2-learning-card:hover { transform: translateY(-5px); border-color: rgba(218,179,94,.62); background: rgba(255,255,255,.075); }
+.v2-learning-card-icon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 15px; border: 1px solid rgba(218,179,94,.38); border-radius: 50%; color: #e1bd69; font-size: 1.35rem; }
+.v2-learning-card h3 { margin: 0 0 8px; font-size: 1.35rem; }
+.v2-learning-card p { margin: 0; line-height: 1.55; font-size: .92rem; opacity: .88; }
+.v2-learning-card-link { display: block; margin-top: 16px; color: #e1bd69; font-size: .88rem; font-weight: 700; }
+.v2-learning-card-wide { grid-column: 1 / -1; min-height: 145px; background: linear-gradient(135deg,rgba(142,107,209,.13),rgba(225,189,105,.07)); }
+.v2-learning-card-wide p { max-width: 680px; }
 
 @media (max-width: 900px) {
-    .v2-learning-layout {
-        grid-template-columns: 1fr;
-    }
+    .v2-hero { grid-template-columns: 1fr; padding-top: 52px; }
+    .v2-hero-copy { text-align: center; margin: 0 auto; }
+    .v2-hero-actions,.v2-trust-row { justify-content: center; }
+    .v2-hero-visual { min-height: 330px; }
+    .v2-real-moon { width: min(330px,70vw); }
+    .v2-daily-card { grid-template-columns: 1fr; text-align: center; }
+    .v2-daily-details > div { padding: 14px 0 0; border-left: 0; border-top: 1px solid rgba(218,179,94,.26); }
+    .v2-guide-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .v2-reflection { flex-direction: column; text-align: center; }
+    .v2-learning-layout { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
-    .v2-learning-hub {
-        width: min(100% - 22px, 1180px);
-        padding: 26px 18px;
-        border-radius: 24px;
-    }
-
-    .v2-learning-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .v2-learning-card-wide {
-        grid-column: auto;
-    }
-
-    .v2-learning-stats {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .v2-learning-stat strong {
-        font-size: 1.2rem;
-    }
+    .v2-hero,.v2-daily-card,.v2-guides,.v2-reflection,.v2-learning-hub { width: min(100% - 22px,1180px); }
+    .v2-hero h1 { font-size: clamp(2.7rem,15vw,4.2rem); }
+    .v2-hero-actions { flex-direction: column; }
+    .v2-hero-actions a { width: 100%; text-align: center; }
+    .v2-hero-visual { min-height: 250px; margin-top: 20px; }
+    .v2-real-moon { width: min(260px,68vw); }
+    .v2-daily-card { padding: 24px 18px; }
+    .v2-guide-grid { grid-template-columns: 1fr; }
+    .v2-guide-card { min-height: auto; }
+    .v2-learning-hub { padding: 26px 18px; border-radius: 24px; }
+    .v2-learning-cards { grid-template-columns: 1fr; }
+    .v2-learning-card-wide { grid-column: auto; }
+    .v2-learning-stats { grid-template-columns: repeat(3,1fr); }
+    .v2-learning-stat strong { font-size: 1.2rem; }
 }
