@@ -20,7 +20,11 @@
   function reading(){
     const root=document.getElementById("reading-v2");if(!root)return;
     const button=root.querySelector("#reading-v2-draw"),out=root.querySelector("#reading-v2-results"),reverse=root.querySelector("#reading-v2-reversals");if(!button||!out)return;
-    let mode="one";root.querySelectorAll("[data-reading-mode]").forEach(b=>b.addEventListener("click",()=>mode=b.dataset.readingMode));
+    let mode="one";
+    root.querySelectorAll("[data-reading-mode]").forEach(b=>b.addEventListener("click",()=>{
+      mode=b.dataset.readingMode;
+      root.querySelectorAll("[data-reading-mode]").forEach(x=>x.classList.toggle("active",x===b));
+    }));
     const drawReading=()=>{const cards=draw(reverse?.checked??true,mode==="three"?3:1),labels=mode==="three"?["Past","Present","Future"]:["Your card"];out.innerHTML=`<div class="reading-reveal-stage"><div class="card-result-grid">${cards.map((c,i)=>cardMarkup(c,labels[i])).join("")}</div><div class="reading-actions"><button class="primary-button" id="save-reading">Save This Reading</button><button class="secondary-button" id="copy-reading">Copy Reading</button><button class="secondary-button" id="draw-again">Draw Again</button></div><div class="notice reading-saved-note" hidden>Reading saved to your private browser history.</div></div>`;requestAnimationFrame(()=>out.querySelectorAll(".reveal-card").forEach((el,i)=>setTimeout(()=>el.classList.add("revealed"),300+i*450)));bindFav(out);
       out.querySelector("#save-reading").onclick=()=>{saveReading(cards,mode);out.querySelector(".reading-saved-note").hidden=false};
       out.querySelector("#copy-reading").onclick=e=>{let text=mode==="three"?cards.map((c,i)=>`${labels[i]}: ${c.name} — ${c.isReversed?"Reversed":"Upright"}\n${c.isReversed?c.reversed:c.upright}`).join("\n\n"): `${cards[0].name} — ${cards[0].isReversed?"Reversed":"Upright"}\n${cards[0].isReversed?cards[0].reversed:cards[0].upright}`;copyText(`The Oracle's Support Centre\n\n${text}`,e.currentTarget)};
