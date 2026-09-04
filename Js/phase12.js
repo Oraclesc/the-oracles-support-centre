@@ -1,7 +1,7 @@
 "use strict";
 /* Phase 1 + 2 interactive upgrades */
 (function(){
-  const esc=s=>String(s??"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]));
+  const esc=s=>String(s??"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;"," ":">","\"":"&quot;"}[m]));
   const save=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
   const read=(key,fallback=[])=>{try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}};
   const slug=n=>n.toLowerCase().replace(/the /g,"the-").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+".html";
@@ -16,6 +16,10 @@
   function copyText(text,button){if(!navigator.clipboard)return; navigator.clipboard.writeText(text).then(()=>{let old=button.textContent;button.textContent="Copied ✓";setTimeout(()=>button.textContent=old,1400)}).catch(()=>{});}
   function saveReading(cards,mode,question=""){
     let a=read("oracleReadings");a.unshift({date:new Date().toISOString(),mode,question,cards:cards.map(c=>({name:c.name,reversed:!!c.isReversed}))});save("oracleReadings",a.slice(0,100));
+    let journal=read("oracleJournalEntries");
+    const summary=cards.map(c=>`${c.name} — ${c.isReversed?"Reversed":"Upright"}\n${c.isReversed?c.reversed:c.upright}`).join("\n\n");
+    journal.unshift({date:new Date().toLocaleString(),card:cards.length===1?cards[0].name:"",question:question||"Saved tarot reading",notes:summary});
+    save("oracleJournalEntries",journal.slice(0,200));
   }
   function reading(){
     const root=document.getElementById("reading-v2");if(!root)return;
@@ -25,7 +29,7 @@
       mode=b.dataset.readingMode;
       root.querySelectorAll("[data-reading-mode]").forEach(x=>x.classList.toggle("active",x===b));
     }));
-    const drawReading=()=>{const cards=draw(reverse?.checked??true,mode==="three"?3:1),labels=mode==="three"?["Past","Present","Future"]:["Your card"];out.innerHTML=`<div class="reading-reveal-stage"><div class="card-result-grid">${cards.map((c,i)=>cardMarkup(c,labels[i])).join("")}</div><div class="reading-actions"><button class="primary-button" id="save-reading">Save This Reading</button><button class="secondary-button" id="copy-reading">Copy Reading</button><button class="secondary-button" id="draw-again">Draw Again</button></div><div class="notice reading-saved-note" hidden>Reading saved to your private browser history.</div></div>`;requestAnimationFrame(()=>out.querySelectorAll(".reveal-card").forEach((el,i)=>setTimeout(()=>el.classList.add("revealed"),300+i*450)));bindFav(out);
+    const drawReading=()=>{const cards=draw(reverse?.checked??true,mode==="three"?3:1),labels=mode==="three"?["Past","Present","Future"]:["Your card"];out.innerHTML=`<div class="reading-reveal-stage"><div class="card-result-grid">${cards.map((c,i)=>cardMarkup(c,labels[i])).join("")}</div><div class="reading-actions"><button class="primary-button" id="save-reading">Save This Reading</button><button class="secondary-button" id="copy-reading">Copy Reading</button><button class="secondary-button" id="draw-again">Draw Again</button></div><div class="notice reading-saved-note" hidden>Reading saved to your private browser history and Tarot Journal.</div></div>`;requestAnimationFrame(()=>out.querySelectorAll(".reveal-card").forEach((el,i)=>setTimeout(()=>el.classList.add("revealed"),300+i*450)));bindFav(out);
       out.querySelector("#save-reading").onclick=()=>{saveReading(cards,mode);out.querySelector(".reading-saved-note").hidden=false};
       out.querySelector("#copy-reading").onclick=e=>{let text=mode==="three"?cards.map((c,i)=>`${labels[i]}: ${c.name} — ${c.isReversed?"Reversed":"Upright"}\n${c.isReversed?c.reversed:c.upright}`).join("\n\n"): `${cards[0].name} — ${cards[0].isReversed?"Reversed":"Upright"}\n${cards[0].isReversed?cards[0].reversed:cards[0].upright}`;copyText(`The Oracle's Support Centre\n\n${text}`,e.currentTarget)};
       out.querySelector("#draw-again").onclick=drawReading;
