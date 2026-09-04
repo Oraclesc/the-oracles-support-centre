@@ -1,4 +1,4 @@
-// Automated generator for the 78 static tarot guide pages.
+// Generates the 78 static tarot guide pages.
 const fs=require("fs"),vm=require("vm"),path=require("path");
 const src=fs.readFileSync(path.join(__dirname,"../data/tarot-data.js"),"utf8"),box={};vm.createContext(box);vm.runInContext(src+";this.cards=tarotCards;",box);const cards=box.cards,root=path.join(__dirname,"..");
 function slug(n){return n.toLowerCase().replace(/the /g,"the-").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
