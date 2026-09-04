@@ -12,7 +12,7 @@ if(!document.querySelector('script[src*="adsbygoogle.js"]')){
 const slug=n=>n.toLowerCase().replace(/the /g,"the-").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+".html";
 const getCard=n=>tarotCards.find(c=>c.name===n);
 const cardUrl=c=>c?slug(c.name):"#";
-const cardImage=c=>c?"images/cards/"+c.file:"";
+const cardImagePath=c=>c?"images/cards/"+c.file:"";
 const draw=(allowReverse=true,n=1)=>[...tarotCards]
   .sort(()=>Math.random()-.5)
   .slice(0,n)
