@@ -1,5 +1,5 @@
 "use strict";
-/* Shared tarot engine — drawing and card lookup only.
+/* Shared tarot engine — lookup, drawing and lightweight card actions.
    Page-specific behaviour lives in phase12.js and phase3.js. */
 if(!document.querySelector('script[src*="adsbygoogle.js"]')){
   const ads=document.createElement("script");
@@ -17,6 +17,23 @@ const draw=(allowReverse=true,n=1)=>[...tarotCards]
   .sort(()=>Math.random()-.5)
   .slice(0,n)
   .map(c=>({...c,isReversed:allowReverse&&Math.random()<.35}));
+
+/* Favourite buttons on static card-guide pages. */
+const bindGuideFavourites=()=>{
+  document.querySelectorAll("[data-fav]").forEach(button=>{
+    if(button.dataset.favBound)return;
+    button.dataset.favBound="1";
+    button.addEventListener("click",()=>{
+      let names=[];
+      try{names=JSON.parse(localStorage.getItem("oracleFavourites")||"[]")}catch{}
+      const name=button.dataset.fav;
+      names=names.includes(name)?names.filter(x=>x!==name):[...names,name];
+      localStorage.setItem("oracleFavourites",JSON.stringify(names));
+      button.textContent=names.includes(name)?"★ Favourite":"☆ Save favourite";
+    });
+  });
+};
+bindGuideFavourites();
 
 /* Card Meaning Search is intentionally kept here because it is a lightweight
    standalone tool and does not overlap with the reading/journal modules. */
