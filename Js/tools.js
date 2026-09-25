@@ -65,6 +65,21 @@ const ensureLegalFooter=()=>{
 };
 ensureLegalFooter();
 
+/* Keep older pages connected to the main Tarot Portal so important content
+   can be reached through ordinary HTML anchor elements. */
+const ensurePortalNavigation=()=>{
+  document.querySelectorAll("nav").forEach(nav=>{
+    if(nav.querySelector('a[href="tarot-portal.html"]'))return;
+    const toolsLink=nav.querySelector('a[href="tools.html"]');
+    const a=document.createElement("a");
+    a.href="tarot-portal.html";
+    a.textContent="Tarot Portal";
+    if(toolsLink)toolsLink.insertAdjacentElement("afterend",a);
+    else nav.appendChild(a);
+  });
+};
+ensurePortalNavigation();
+
 const slug=n=>n.toLowerCase().replace(/the /g,"the-").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+".html";
 const getCard=n=>tarotCards.find(c=>c.name===n);
 const cardUrl=c=>c?slug(c.name):"#";
