@@ -198,6 +198,41 @@ const addSeoBreadcrumbs=()=>{
 };
 addSeoBreadcrumbs();
 
+/* Add related-card links to individual card pages. This creates a connected
+   78-card network instead of leaving each card as an isolated landing page. */
+const addRelatedCardLinks=()=>{
+  const main=document.querySelector("main");
+  if(!main || main.querySelector(".related-card-links"))return;
+  const page=(location.pathname.split("/").pop()||"").toLowerCase();
+  const card=tarotCards.find(c=>cardUrl(c)===page);
+  if(!card)return;
+  const index=tarotCards.indexOf(card);
+  let related=[];
+  if(index>=0 && index<22){
+    related=[tarotCards[index-1],tarotCards[index+1],tarotCards[Math.max(0,index-2)],tarotCards[Math.min(21,index+2)]];
+  }else{
+    const suit=card.category;
+    related=tarotCards.filter(c=>c!==card && c.category===suit).slice(Math.max(0,index-2),index+3);
+    if(related.length<4)related=tarotCards.filter(c=>c!==card && c.category===suit).slice(0,4);
+  }
+  related=related.filter(Boolean).filter((c,i,a)=>a.findIndex(x=>x.name===c.name)===i).slice(0,4);
+  if(!related.length)return;
+  const section=document.createElement("section");
+  section.className="about-content related-card-links";
+  section.style.marginTop="22px";
+  section.innerHTML='<article class="about-section"><div class="about-symbol">78</div><div><h2>Related Tarot Cards</h2><p>Compare nearby cards and notice how their themes connect across the deck.</p><div class="tool-actions"></div></div></article>';
+  const actions=section.querySelector(".tool-actions");
+  related.forEach(c=>{
+    const a=document.createElement("a");
+    a.className="secondary-button";
+    a.href=cardUrl(c);
+    a.textContent=c.name;
+    actions.appendChild(a);
+  });
+  main.appendChild(section);
+};
+addRelatedCardLinks();
+
 /* Card Meaning Search is intentionally kept here because it is a lightweight
    standalone tool and does not overlap with the reading/journal modules. */
 const searchRoot=document.getElementById("card-search-app");
