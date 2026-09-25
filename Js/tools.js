@@ -106,6 +106,70 @@ const bindGuideFavourites=()=>{
 };
 bindGuideFavourites();
 
+/* Add a small contextual internal-link block to older and card-guide pages.
+   The links are real <a href> elements so crawlers can follow them after rendering. */
+const addContextualLinks=()=>{
+  const main=document.querySelector("main");
+  if(!main || main.querySelector(".contextual-internal-links"))return;
+  const page=(location.pathname.split("/").pop()||"index.html").toLowerCase();
+  const excluded=["index.html","tarot-portal.html","tarot-library.html","guides.html","tools.html","tarot-lab.html","tarot-school.html"];
+  if(excluded.includes(page))return;
+
+  const cardPages=/^(the-|ace-of-|two-of-|three-of-|four-of-|five-of-|six-of-|seven-of-|eight-of-|nine-of-|ten-of-|page-of-|knight-of-|queen-of-|king-of-).+\\.html$/.test(page);
+  const majorPages=["major-arcana.html","the-fool.html","the-magician.html","the-high-priestess.html","the-empress.html","the-emperor.html","the-hierophant.html","the-lovers.html","the-chariot.html","strength.html","the-hermit.html","wheel-of-fortune.html","justice.html","the-hanged-man.html","death.html","temperance.html","the-devil.html","the-tower.html","the-star.html","the-moon.html","the-sun.html","judgement.html","the-world.html"];
+  const suitPages=["minor-arcana.html","wands.html","cups.html","swords.html","pentacles.html"];
+
+  let links;
+  if(cardPages){
+    links=[
+      ["tarot-card-contexts.html","Explore this card in Love, Career & Yes/No contexts"],
+      ["tarot-card-combinations.html","Learn how card combinations work"],
+      ["reversed-tarot-cards.html","Understand reversed Tarot cards"],
+      ["tarot-spreads.html","Choose a Tarot spread for your question"],
+      ["tarot-journal-prompts.html","Use journal prompts to deepen your reading"]
+    ];
+  }else if(majorPages.includes(page)){
+    links=[
+      ["major-arcana.html","Explore the Major Arcana"],
+      ["tarot-history.html","Read about Tarot history"],
+      ["tarot-symbolism.html","Study Tarot symbolism"],
+      ["tarot-zodiac.html","Explore Tarot and zodiac correspondences"],
+      ["tarot-card-contexts.html","See practical card contexts"]
+    ];
+  }else if(suitPages.includes(page)){
+    links=[
+      ["minor-arcana.html","Return to the Minor Arcana guide"],
+      ["tarot-numerology.html","Explore Tarot numerology"],
+      ["tarot-symbolism.html","Study Tarot symbolism"],
+      ["tarot-card-contexts.html","Explore card contexts"],
+      ["tarot-combinations.html","Study card combinations"]
+    ];
+  }else{
+    links=[
+      ["tarot-portal.html","Explore the Tarot Portal"],
+      ["tarot-library.html","Browse the Tarot Library"],
+      ["tarot-school.html","Follow the Tarot School study plan"],
+      ["tarot-spreads.html","Choose a Tarot spread"],
+      ["cards.html","Explore all 78 Tarot cards"]
+    ];
+  }
+
+  const section=document.createElement("section");
+  section.className="about-content contextual-internal-links";
+  section.style.marginTop="22px";
+  section.innerHTML='<article class="about-section"><div class="about-symbol">✦</div><div><h2>Continue Exploring Tarot</h2><p>Keep building your understanding with these related free resources.</p><div class="tool-actions"></div></div></article>';
+  const actions=section.querySelector(".tool-actions");
+  links.forEach(([href,label])=>{
+    const a=document.createElement("a");
+    a.className="secondary-button";
+    a.href=href;
+    a.textContent=label;
+    actions.appendChild(a);
+  });
+  main.appendChild(section);
+};
+addContextualLinks();
+
 /* Card Meaning Search is intentionally kept here because it is a lightweight
    standalone tool and does not overlap with the reading/journal modules. */
 const searchRoot=document.getElementById("card-search-app");
