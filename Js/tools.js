@@ -170,6 +170,34 @@ const addContextualLinks=()=>{
 };
 addContextualLinks();
 
+/* Add visible breadcrumbs plus matching BreadcrumbList structured data. Google recommends
+   breadcrumbs that represent a normal user path through the site's hierarchy. */ 
+const addSeoBreadcrumbs=()=>{
+  const main=document.querySelector("main");
+  if(!main || main.querySelector(".seo-breadcrumbs"))return;
+  const page=(location.pathname.split("/").pop()||"index.html").toLowerCase();
+  if(page==="index.html")return;
+  const title=(document.querySelector("h1")?.textContent||document.title.split("|")[0]||"Tarot").replace(/\\s+/g," ").trim();
+  const card=/^(the-|ace-of-|two-of-|three-of-|four-of-|five-of-|six-of-|seven-of-|eight-of-|nine-of-|ten-of-|page-of-|knight-of-|queen-of-|king-of-).+\\.html$/.test(page);
+  let parent=["Tarot","tarot-portal.html","Tarot Portal"];
+  if(card)parent=["Tarot Cards","cards.html","Tarot Cards"];
+  else if(/love|relationship/i.test(page+" "+title))parent=["Love Tarot","tarot-love.html","Love Tarot"];
+  else if(/career|money/i.test(page+" "+title))parent=["Career Tarot","tarot-career.html","Career Tarot"];
+  else if(/journal|practice|school|learn|guide|question|spread|symbolism|numerology|history|ethics|myth|intuition/i.test(page+" "+title))parent=["Tarot Guides","guides.html","Tarot Guides"];
+  const base="https://oraclesupportcentre.com/";
+  const items=[{name:"Home",url:base},{name:parent[0],url:base+parent[1]},{name:title,url:base+page}];
+  const nav=document.createElement("nav");
+  nav.className="seo-breadcrumbs";
+  nav.setAttribute("aria-label","Breadcrumb");
+  nav.innerHTML='<ol>'+items.map((item,i)=>i===items.length-1?'<li aria-current="page">'+item.name+'</li>':'<li><a href="'+item.url.replace(base,"")+'">'+item.name+'</a></li>').join("")+'</ol>';
+  main.insertBefore(nav,main.firstChild);
+  const script=document.createElement("script");
+  script.type="application/ld+json";
+  script.textContent=JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":items.map((item,i)=>({"@type":"ListItem","position":i+1,"name":item.name,"item":item.url}))});
+  document.head.appendChild(script);
+};
+addSeoBreadcrumbs();
+
 /* Card Meaning Search is intentionally kept here because it is a lightweight
    standalone tool and does not overlap with the reading/journal modules. */
 const searchRoot=document.getElementById("card-search-app");
