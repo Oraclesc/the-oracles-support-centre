@@ -5015,3 +5015,32 @@ footer,
     background: #000000;
     color: #ffffff;
 }
+
+
+/* Fix for the black theme: remove decorative moon and atmospheric overlays
+   so they cannot show through transparent content panels. */
+.moon,
+body::before,
+body::after {
+    display: none !important;
+    content: none !important;
+    animation: none !important;
+    background-image: none !important;
+    filter: none !important;
+}
+body,
+.page,
+main,
+section,
+article,
+.about-section,
+.about-content,
+.about-notice,
+.about-introduction,
+.about-action,
+.card-library-navigation,
+.related-guides,
+.workbook section {
+    background-color: #000000;
+    background-image: none;
+}
