@@ -4955,3 +4955,63 @@ main > section:last-child {
 .seo-breadcrumbs li:not(:last-child)::after{content:"›";margin-left:6px;opacity:.6}
 .seo-breadcrumbs a{text-decoration:none}
 .seo-breadcrumbs a:hover{text-decoration:underline}
+
+
+/* =========================================
+   SITE-WIDE PURE BLACK BACKGROUND THEME
+   Keep the existing gold/lilac accents and readable white text.
+   ========================================= */
+html, body {
+    background: #000000 !important;
+    background-image: none !important;
+    color: #f7f4fa;
+}
+body {
+    background-color: #000000 !important;
+}
+.page,
+main,
+main.page,
+.site-header,
+header,
+footer,
+.site-footer,
+.about-page,
+.reading-page,
+.cards-page,
+.guides-page {
+    background-color: #000000;
+    background-image: none;
+}
+/* Shared content panels become black rather than purple gradients. */
+.about-section,
+.about-content,
+.about-notice,
+.about-introduction,
+.about-action,
+.card-library-navigation,
+.related-guides,
+.related-guides-grid,
+.previous-next-navigation,
+.guide-navigation-link,
+.seo-breadcrumbs,
+.workbook section,
+.workbook .example-card,
+.workbook .prompt {
+    background: #000000 !important;
+    background-image: none !important;
+}
+/* Preserve clear separation between panels on the black canvas. */
+.about-section,
+.about-notice,
+.card-library-navigation,
+.related-guides,
+.workbook section,
+.workbook .example-card {
+    border-color: rgba(220, 190, 255, 0.28);
+}
+.workbook textarea,
+.workbook input[type="text"] {
+    background: #000000;
+    color: #ffffff;
+}
