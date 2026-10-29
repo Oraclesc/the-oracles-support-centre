@@ -2,7 +2,7 @@
 /* Phase 1 + 2 interactive upgrades */
 (function(){
   const esc=s=>String(s??"").replace(/[&<>\"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]));
-  const save=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
+  const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));return true}catch(error){console.warn("Browser storage unavailable; this change will not persist.",error);return false}};
   const read=(key,fallback=[])=>{try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}};
   const slug=n=>n.toLowerCase().replace(/the /g,"the-").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+".html";
   const cardBy=n=>tarotCards.find(c=>c.name===n);
