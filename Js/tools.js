@@ -99,7 +99,7 @@ const bindGuideFavourites=()=>{
       try{names=JSON.parse(localStorage.getItem("oracleFavourites")||"[]")}catch{}
       const name=button.dataset.fav;
       names=names.includes(name)?names.filter(x=>x!==name):[...names,name];
-      localStorage.setItem("oracleFavourites",JSON.stringify(names));
+      try{localStorage.setItem("oracleFavourites",JSON.stringify(names))}catch(error){console.warn("Browser storage unavailable; favourite was not saved.",error)}
       button.textContent=names.includes(name)?"★ Favourite":"☆ Save favourite";
     });
   });
