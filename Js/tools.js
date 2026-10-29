@@ -41,27 +41,32 @@ const ensureLegalFooter=()=>{
 
   if(!legal.querySelector("#privacy-settings-link")){
     const a=document.createElement("a");
-    a.href="javascript:void(0)";
+    a.href="cookies.html#managing-cookies";
     a.id="privacy-settings-link";
     a.textContent="Privacy & cookie settings";
-    a.style.display="none";
-    a.addEventListener("click",event=>{
-      event.preventDefault();
-      if(window.googlefc&&typeof window.googlefc.showRevocationMessage==="function"){
-        window.googlefc.showRevocationMessage();
-      }
-    });
     legal.appendChild(a);
-
-    window.googlefc=window.googlefc||{};
-    window.googlefc.callbackQueue=window.googlefc.callbackQueue||[];
-    window.googlefc.callbackQueue.push({
-      CONSENT_API_READY:()=>{
-        const link=document.getElementById("privacy-settings-link");
-        if(link)link.style.display="";
-      }
-    });
   }
+  const privacyLink=legal.querySelector("#privacy-settings-link");
+  if(privacyLink){
+    privacyLink.href="cookies.html#managing-cookies";
+    if(!privacyLink.dataset.privacyFallbackBound){
+      privacyLink.dataset.privacyFallbackBound="1";
+      privacyLink.addEventListener("click",event=>{
+        if(window.googlefc&&typeof window.googlefc.showRevocationMessage==="function"){
+          event.preventDefault();
+          window.googlefc.showRevocationMessage();
+        }
+      });
+    }
+  }
+  window.googlefc=window.googlefc||{};
+  window.googlefc.callbackQueue=window.googlefc.callbackQueue||[];
+  window.googlefc.callbackQueue.push({
+    CONSENT_API_READY:()=>{
+      const link=document.getElementById("privacy-settings-link");
+      if(link)link.style.display="";
+    }
+  });
 };
 ensureLegalFooter();
 
