@@ -2,8 +2,8 @@
 "use strict";
 const KEY="oracleLab.v1";
 const base={xp:0,readings:[],journal:[],studied:[],followups:[],spreads:[],practice:[],quiz:0,memoryBest:null};
-let state=JSON.parse(localStorage.getItem(KEY)||"null")||base;
-const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+let state=base;try{state=JSON.parse(localStorage.getItem(KEY)||"null")||base}catch(error){console.warn("Browser storage unavailable; progress will remain temporary.",error)}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state));return true}catch(error){console.warn("Browser storage unavailable; progress will not persist.",error);return false}};
 const $=id=>document.getElementById(id);
 const cards=window.tarotCards||[];
 const group=c=>c.file.toLowerCase().startsWith("cups")?"Cups":c.file.toLowerCase().startsWith("pentacles")?"Pentacles":c.file.toLowerCase().startsWith("swords")?"Swords":c.file.toLowerCase().startsWith("wands")?"Wands":"Major Arcana";
