@@ -207,6 +207,18 @@ const addRelatedCardLinks=()=>{
   const card=tarotCards.find(c=>cardUrl(c)===page);
   if(!card)return;
   const index=tarotCards.indexOf(card);
+  /* Add a card-specific worked application so the 78 guides teach interpretation,
+     not only repeat a fixed page template. */
+  if(!main.querySelector(".worked-card-application")){
+    const worked=document.createElement("section");
+    worked.className="about-content worked-card-application";
+    worked.style.marginTop="22px";
+    const keywords=(card.keywords||[]).slice(0,3).join(", ");
+    const safe=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+    worked.innerHTML='<article class="about-section"><div class="about-symbol">✦</div><div><h2>Worked Example: Applying '+safe(card.name)+'</h2><p><strong>Practice question:</strong> “What deserves my attention in this situation?”</p><p><strong>First, name the theme:</strong> '+safe(card.name)+' is associated here with '+safe(keywords||card.category||"this card's traditional themes")+'. Treat these as interpretive starting points, not facts about your future.</p><p><strong>One possible interpretation:</strong> '+safe(card.upright||"Consider the card's traditional themes in the context of your question.")+' Ask what real situation or behaviour this might describe, and what evidence supports that connection.</p><p><strong>Read it another way:</strong> '+safe(card.reversed||"Consider how the theme might be delayed, internalised, blocked or expressed in excess.")+' Compare this alternative with the first interpretation instead of assuming either must be correct.</p><p><strong>Turn insight into reflection:</strong> Write one specific observation, one alternative explanation and one small action within your control. A card cannot establish another person’s private thoughts or guarantee an outcome.</p><p><strong>Try it:</strong> What detail in the card image stands out to you, and how does that detail change your interpretation of the question?</p></div></article>';
+    const grid=main.querySelector(".tool-grid");
+    if(grid) grid.insertAdjacentElement("afterend",worked); else main.appendChild(worked);
+  }
   let related=[];
   if(index>=0 && index<22){
     related=[tarotCards[index-1],tarotCards[index+1],tarotCards[Math.max(0,index-2)],tarotCards[Math.min(21,index+2)]];
