@@ -50,7 +50,7 @@
         <section class="cards-introduction">
             <p class="eyebrow">Explore the deck</p>
             <h1>Tarot Card Meanings</h1>
-            <p>Browse all 78 tarot cards. Use the search and filters for a quick lookup, or open an individual card guide for a deeper explanation of its upright and reversed meanings, symbolism and reflective questions.</p>
+            <p>Choose a Tarot tradition, then browse its 78 cards and open individual guides for meanings, symbolism, practical examples and reflection questions. The two traditions use different imagery and interpretive methods.</p>
         </section>
         <section class="card-library-navigation" aria-labelledby="card-guide-title">
             <h2 id="card-guide-title">Explore Tarot Card Guides</h2>
@@ -64,8 +64,11 @@
             </div>
         </section>
         <section class="card-library" aria-labelledby="library-title">
-            <h2 id="library-title">The Complete Tarot Deck</h2>
+            <h2 id="library-title">The Complete 78-Card Deck</h2>
             <div class="library-controls">
+                <label class="search-label" for="deck-select">Choose your deck</label>
+                <select id="deck-select" class="card-search" aria-label="Choose Tarot deck"><option value="rider-waite">Rider–Waite–Smith</option><option value="marseille">Tarot de Marseille</option></select>
+                <p id="deck-description" class="card-count">Rider–Waite–Smith uses illustrated scenes throughout the Minor Arcana. Marseille uses traditional pip cards, read through number, suit and visual arrangement.</p>
                 <label class="search-label" for="card-search">Search the deck</label>
                 <input id="card-search" class="card-search" type="search" placeholder="Search for a card..." autocomplete="off">
                 <div class="card-filters" aria-label="Filter cards by group">
