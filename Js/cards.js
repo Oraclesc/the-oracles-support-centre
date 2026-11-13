@@ -296,10 +296,10 @@ function openCardModal(tarotCard) {
     const group = getCardGroup(tarotCard);
 
     modalCardImage.src =
-        "images/cards/" + tarotCard.file;
+        tarotCard.image || ("images/cards/" + tarotCard.file);
 
-    modalCardImage.alt = tarotCard.name;
-    modalCardName.textContent = tarotCard.name;
+    modalCardImage.alt = tarotCard.name + (tarotCard.frenchName ? " — " + tarotCard.frenchName : "");
+    modalCardName.textContent = tarotCard.name + (tarotCard.frenchName ? " · " + tarotCard.frenchName : "");
     modalCardGroup.textContent = formatGroupName(group);
     modalCardKeywords.textContent = tarotCard.keywords.join(" • ");
     modalUpright.textContent = tarotCard.upright;
