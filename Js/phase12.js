@@ -15,8 +15,8 @@
   }
   function bindFav(root){root.querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{let a=read("oracleFavourites"),n=b.dataset.fav;a=a.includes(n)?a.filter(x=>x!==n):[...a,n];save("oracleFavourites",a);b.textContent=a.includes(n)?"★ Favourite":"☆ Save favourite";});}
   function copyText(text,button){if(!navigator.clipboard)return; navigator.clipboard.writeText(text).then(()=>{let old=button.textContent;button.textContent="Copied ✓";setTimeout(()=>button.textContent=old,1400)}).catch(()=>{});}
-  function saveReading(cards,mode,question=""){
-    let a=read("oracleReadings");a.unshift({date:new Date().toISOString(),mode,question,cards:cards.map(c=>({name:c.name,reversed:!!c.isReversed}))});save("oracleReadings",a.slice(0,100));
+  function saveReading(cards,mode,question="",deck="rider-waite"){
+    let a=read("oracleReadings");a.unshift({date:new Date().toISOString(),mode,question,deck,cards:cards.map(c=>({name:c.name,reversed:!!c.isReversed}))});save("oracleReadings",a.slice(0,100));
     let journal=read("oracleJournalEntries");
     const summary=cards.map(c=>`${c.name} — ${c.isReversed?"Reversed":"Upright"}\n${c.isReversed?c.reversed:c.upright}`).join("\n\n");
     journal.unshift({date:new Date().toLocaleString(),card:cards.length===1?cards[0].name:"",question:question||"Saved tarot reading",notes:summary});
@@ -25,7 +25,9 @@
   function reading(){
     const root=document.getElementById("reading-v2");if(!root)return;
     const button=root.querySelector("#reading-v2-draw"),out=root.querySelector("#reading-v2-results"),reverse=root.querySelector("#reading-v2-reversals");if(!button||!out)return;
-    let mode="one";\n    const deckSelect=root.querySelector("#reading-v2-deck");\n    if(deckSelect&&new URLSearchParams(location.search).get("deck")==="marseille")deckSelect.value="marseille";
+    let mode="one";
+    const deckSelect=root.querySelector("#reading-v2-deck");
+    if(deckSelect&&new URLSearchParams(location.search).get("deck")==="marseille")deckSelect.value="marseille";
     root.querySelectorAll("[data-reading-mode]").forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.readingMode;root.querySelectorAll("[data-reading-mode]").forEach(x=>x.classList.toggle("active",x===b));}));
     const drawReading=()=>{const deckKey=deckSelect?.value==="marseille"?"marseille":"rider-waite";const source=deckKey==="marseille"?marseilleCards:tarotCards;const shuffled=[...source];for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];}const cards=shuffled.slice(0,mode==="three"?3:1).map(c=>({...c,deck:deckKey,isReversed:(reverse?.checked??true)&&Math.random()<.35})),labels=mode==="three"?["Past","Present","Future"]:["Your card"];out.innerHTML=`<div class="reading-reveal-stage"><div class="card-result-grid">${cards.map((c,i)=>cardMarkup(c,labels[i])).join("")}</div><div class="reading-actions"><button class="primary-button" id="save-reading">Save This Reading</button><button class="secondary-button" id="copy-reading">Copy Reading</button><button class="secondary-button" id="draw-again">Draw Again</button></div><div class="notice reading-saved-note" hidden>Reading saved to your private browser history and Tarot Journal.</div></div>`;requestAnimationFrame(()=>out.querySelectorAll(".reveal-card").forEach((el,i)=>setTimeout(()=>el.classList.add("revealed"),300+i*450)));bindFav(out);
       out.querySelector("#save-reading").onclick=()=>{saveReading(cards,mode,"",deckKey);out.querySelector(".reading-saved-note").hidden=false};
