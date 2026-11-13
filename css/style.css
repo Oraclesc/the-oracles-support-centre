@@ -5167,13 +5167,13 @@ header.site-header nav a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 36px;
-    padding: 8px 13px;
+    min-height: 40px;
+    padding: 9px 15px;
     border: 1px solid rgba(218, 179, 94, 0.34);
     border-radius: 999px;
     color: rgba(255, 255, 255, 0.9);
     background: linear-gradient(180deg, rgba(42, 29, 61, 0.94), rgba(17, 12, 29, 0.96));
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
     line-height: 1.1;
     text-decoration: none;
@@ -5223,9 +5223,9 @@ header.site-header nav a:focus-visible {
         gap: 7px;
     }
     header.site-header nav a {
-        min-height: 34px;
-        padding: 7px 10px;
-        font-size: 14px;
+        min-height: 38px;
+        padding: 8px 12px;
+        font-size: 16px;
     }
 }
 
