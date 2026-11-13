@@ -5,6 +5,8 @@
 ========================== */
 
 const tarotGrid = document.getElementById("tarot-grid");
+const deckSelect = document.getElementById("deck-select");
+let activeCards = tarotCards;
 const cardSearch = document.getElementById("card-search");
 const filterButtons = document.querySelectorAll(".filter-button");
 const cardCount = document.getElementById("card-count");
@@ -64,7 +66,8 @@ if (
 
 } else {
 
-    displayCards(tarotCards);
+    if(deckSelect){const requested=new URLSearchParams(location.search).get("deck");if(requested==="marseille")deckSelect.value="marseille";activeCards=deckSelect.value==="marseille"?marseilleCards:tarotCards;deckSelect.addEventListener("change",()=>{activeCards=deckSelect.value==="marseille"?marseilleCards:tarotCards;filterCards();});}
+    displayCards(activeCards);
 
 }
 
@@ -92,7 +95,7 @@ function displayCards(cardsToDisplay) {
 
         const image = document.createElement("img");
 
-        image.src = "images/cards/" + tarotCard.file;
+        image.src = tarotCard.image || ("images/cards/" + tarotCard.file);
         image.alt = tarotCard.name;
         image.loading = "lazy";
 
@@ -225,7 +228,7 @@ filterButtons.forEach(function (button) {
 
 function filterCards() {
 
-    const filteredCards = tarotCards.filter(function (tarotCard) {
+    const filteredCards = activeCards.filter(function (tarotCard) {
 
         const cardGroup = getCardGroup(tarotCard);
 
