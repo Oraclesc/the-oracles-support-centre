@@ -178,6 +178,8 @@ function formatGroupName(group) {
 
 function getCardGuideUrl(tarotCard) {
 
+    if (tarotCard.guideUrl) return tarotCard.guideUrl;
+
     const slug = tarotCard.name
         .toLowerCase()
         .replace(/[’']/g, "")
