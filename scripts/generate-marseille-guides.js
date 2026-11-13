@@ -2,7 +2,7 @@
 const fs=require("fs"),vm=require("vm"),path=require("path");
 const box={};vm.createContext(box);
 vm.runInContext(fs.readFileSync(path.join(__dirname,"../data/tarot-data.js"),"utf8"),box);
-vm.runInContext(fs.readFileSync(path.join(__dirname,"../data/marseille-data.js"),"utf8"),box);
+vm.runInContext(fs.readFileSync(path.join(__dirname,"../data/marseille-data.js"),"utf8")+";this.marseilleCards=marseilleCards;",box);
 const cards=box.marseilleCards,root=path.join(__dirname,"..");
 const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const suitFocus={Cups:["emotions, relationships and belonging","Notice the quality of emotional exchange, care and connection."],Pentacles:["resources, work and practical security","Look at tangible conditions, routines, effort and what can be sustained."],Swords:["thought, conflict and discernment","Separate evidence from assumption and examine the choices or boundaries involved."],Wands:["energy, enterprise and creative action","Notice where initiative is building and whether energy has a useful direction."],"Major Arcana":["larger cycles, choices and life themes","Consider the wider pattern without turning the card into a fixed prediction."]};
