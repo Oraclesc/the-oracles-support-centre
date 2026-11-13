@@ -5,6 +5,8 @@ on:
     paths:
       - 'data/tarot-data.js'
       - 'scripts/generate-card-guides.js'
+      - 'data/marseille-data.js'
+      - 'scripts/generate-marseille-guides.js'
       - 'css/tools.css'
       - 'manifest.webmanifest'
       - 'Js/tools.js'
@@ -22,6 +24,8 @@ jobs:
           node-version: 24
       - name: Generate card guide pages
         run: node scripts/generate-card-guides.js
+      - name: Generate Marseille card guide pages
+        run: node scripts/generate-marseille-guides.js
       - name: Remove superseded large image assets
         run: rm -f images/moon.png images/card-back.png
       - name: Commit generated guides and cleanup
