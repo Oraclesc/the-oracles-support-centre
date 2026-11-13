@@ -6,6 +6,7 @@
 
 const tarotGrid = document.getElementById("tarot-grid");
 const deckSelect = document.getElementById("deck-select");
+const deckDescription = document.getElementById("deck-description");
 let activeCards = tarotCards;
 const cardSearch = document.getElementById("card-search");
 const filterButtons = document.querySelectorAll(".filter-button");
@@ -66,7 +67,8 @@ if (
 
 } else {
 
-    if(deckSelect){const requested=new URLSearchParams(location.search).get("deck");if(requested==="marseille")deckSelect.value="marseille";activeCards=deckSelect.value==="marseille"?marseilleCards:tarotCards;deckSelect.addEventListener("change",()=>{activeCards=deckSelect.value==="marseille"?marseilleCards:tarotCards;filterCards();});}
+    if(deckSelect){const requested=new URLSearchParams(location.search).get("deck");if(requested==="marseille")deckSelect.value="marseille";activeCards=deckSelect.value==="marseille"?marseilleCards:tarotCards;deckSelect.addEventListener("change",()=>{activeCards=deckSelect.value==="marseille"?marseilleCards:tarotCards;if(deckDescription)deckDescription.textContent=deckSelect.value==="marseille"?"Marseille uses traditional pip cards, read through number, suit, visual arrangement and surrounding cards. Justice is VIII and Strength is XI.":"Rider–Waite–Smith uses illustrated scenes throughout the Minor Arcana, making its visual storytelling different from Marseille.";filterCards();});
+    if(deckDescription&&deckSelect.value==="marseille")deckDescription.textContent="Marseille uses traditional pip cards, read through number, suit, visual arrangement and surrounding cards. Justice is VIII and Strength is XI.";}
     displayCards(activeCards);
 
 }
