@@ -134,6 +134,12 @@ function displayCards(cardsToDisplay) {
 
 function getCardGroup(tarotCard) {
 
+    if (tarotCard.suit === "Major Arcana") return "major";
+    if (tarotCard.suit === "Pentacles") return "pentacles";
+    if (tarotCard.suit === "Cups") return "cups";
+    if (tarotCard.suit === "Swords") return "swords";
+    if (tarotCard.suit === "Wands") return "wands";
+
     const filename = tarotCard.file.toLowerCase();
 
     if (filename.startsWith("cups")) {
@@ -240,6 +246,7 @@ function filterCards() {
 
         const searchableText = (
             tarotCard.name +
+            " " + (tarotCard.frenchName || "") +
             " " +
             tarotCard.category +
             " " +
