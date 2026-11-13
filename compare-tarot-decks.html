@@ -25,7 +25,7 @@
 <script>
 (function(){
 const selector=document.getElementById("compare-card"), output=document.getElementById("comparison"), status=document.getElementById("compare-status");
-const rws=window.tarotCards||[], marseille=window.marseilleCards||[];
+const rws=typeof tarotCards!=="undefined"?tarotCards:[], marseille=typeof marseilleCards!=="undefined"?marseilleCards:[];
 const byName=new Map(marseille.map(card=>[card.name,card]));
 const names=rws.map(card=>card.name).filter(name=>byName.has(name));
 selector.innerHTML=names.map(name=>'<option value="'+name.replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">'+name+'</option>').join('');
