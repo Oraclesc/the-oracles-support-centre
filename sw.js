@@ -1,4 +1,4 @@
-const CACHE_NAME="oracle-support-v28";
+const CACHE_NAME="oracle-support-v29";
 const CORE=["/","/index.html","/cards.html","/horoscope.html","/marseille-tarot.html","/compare-tarot-decks.html","/guides.html","/reading.html","/tools.html","/editorial-standards.html","/tarot-reading-studio.html","/tarot-reading-case-studies.html","/tarot-reading-workbook.html","/card-of-the-day.html","/learn-tarot.html","/tarot-journal.html","/tarot-combinations.html","/card-search.html","/favourites.html","/ask-the-tarot.html","/relationship-reading.html","/career-reading.html","/yes-no-reading.html","/my-tarot-journey.html","/css/style.css","/css/tools.css","/css/home-v2-final.css","/data/tarot-data.js","/data/marseille-data.js","/Js/script.js","/Js/tools.js","/Js/daily.js","/Js/phase12.js","/Js/phase3.js","/Js/home-v2-final.js","/Js/home-journey.js","/Js/school-progress.js","/images/moon.webp","/images/card-back.webp"];
 self.addEventListener("install",e=>e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE_NAME).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
@@ -14,6 +14,8 @@ async function addSchoolTracking(response){
 }
 self.addEventListener("fetch",e=>{
   if(e.request.method!=="GET")return;
+  // Do not cache third-party APIs or assets: daily data must be fetched fresh.
+  if(new URL(e.request.url).origin!==self.location.origin)return;
   if(e.request.mode==="navigate"){
     e.respondWith((async()=>{
       const cached=await caches.match(e.request);
