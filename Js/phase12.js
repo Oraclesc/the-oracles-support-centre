@@ -7,7 +7,7 @@
   const slug=n=>n.toLowerCase().replace(/the /g,"the-").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+".html";
   const cardBy=n=>tarotCards.find(c=>c.name===n);
   const image=c=>c?(c.image||("images/cards/"+c.file)):"";
-  const guide=c?(c.guideUrl||slug(c.name)):"#";
+  const guide=c=>c?(c.guideUrl||slug(c.name)):"#";
   function cardMarkup(c,label){
     const badge=c.deck==="marseille"?"Tarot de Marseille":"Rider–Waite–Smith";
     const favourite=c.deck==="marseille"?"":'<br><button class="secondary-button" data-fav="'+esc(c.name)+'">☆ Save favourite</button>';
