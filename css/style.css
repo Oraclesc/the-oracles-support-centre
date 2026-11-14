@@ -5234,3 +5234,60 @@ header.site-header nav a:focus-visible {
         transition: none;
     }
 }
+
+/* =========================================
+   FINAL SHARED NAVIGATION SIZING
+   Keep top-level links consistent on every page.
+========================================= */
+header.site-header nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+header.site-header nav a,
+header.site-header nav a.current-page,
+header.site-header nav a[aria-current="page"] {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 8px 13px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+}
+
+@media (max-width: 1050px) {
+    header.site-header {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    header.site-header nav {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    header.site-header nav {
+        gap: 7px;
+    }
+
+    header.site-header nav a,
+    header.site-header nav a.current-page,
+    header.site-header nav a[aria-current="page"] {
+        min-height: 40px;
+        padding: 8px 13px;
+        font-size: 16px;
+    }
+}
+
