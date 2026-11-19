@@ -58,7 +58,29 @@
     const grid=history.querySelector(".history-grid"),today=new Date();today.setHours(12,0,0,0);let html="";for(let i=-6;i<=0;i++){let d=new Date(today);d.setDate(today.getDate()+i);let key=d.toISOString().slice(0,10),h=[...key].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7),c=tarotCards[h%tarotCards.length],rev=h%7===0,dayParam=i===-1?"yesterday":i===1?"tomorrow":i;html+=`<a class="history-card" href="card-of-the-day.html?day=${dayParam}"><span>${d.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"})}</span><img src="${image(c)}" alt="${esc(c.name)}"><strong>${esc(c.name)}</strong><small>${rev?"Reversed":"Upright"}</small></a>`}grid.innerHTML=html;
   }
   function journey(){
-    const root=document.getElementById("journey-app");if(!root)return;let favs=read("oracleFavourites"),journals=read("oracleJournalEntries"),readings=read("oracleReadings"),lessons=read("oracleLessons"),pct=Math.round(Math.min(lessons.length,12)/12*100);root.querySelector("[data-stat=cards]").textContent=favs.length;root.querySelector("[data-stat=readings]").textContent=readings.length;root.querySelector("[data-stat=journal]").textContent=journals.length;root.querySelector("[data-stat=lessons]").textContent=pct+"%";let recent=root.querySelector("#journey-recent");recent.innerHTML=readings.slice(0,5).map(r=>`<article class="result-card"><h3>${esc(new Date(r.date).toLocaleDateString())} · ${esc(r.mode)}</h3><p>${r.cards.map(c=>`${esc(c.name)}${c.reversed?" (Reversed)":""}`).join(" • ")}</p></article>`).join("")||'<div class="empty-state">Your reading history will appear here after your first saved reading.</div>';
+    const root=document.getElementById("journey-app");if(!root)return;
+    const render=()=>{
+      let favs=read("oracleFavourites"),journals=read("oracleJournalEntries"),readings=read("oracleReadings"),lessons=read("oracleLessons"),pct=Math.round(Math.min(lessons.length,12)/12*100);
+      root.querySelector("[data-stat=cards]").textContent=favs.length;
+      root.querySelector("[data-stat=readings]").textContent=readings.length;
+      root.querySelector("[data-stat=journal]").textContent=journals.length;
+      root.querySelector("[data-stat=lessons]").textContent=pct+"%";
+      let recent=root.querySelector("#journey-recent");
+      recent.innerHTML=readings.slice(0,5).map(r=>`<article class="result-card"><h3>${esc(new Date(r.date).toLocaleDateString())} · ${esc(r.mode)}</h3><p>${r.cards.map(c=>`${esc(c.name)}${c.reversed?" (Reversed)":""}`).join(" • ")}</p></article>`).join("")||'<div class="empty-state">Your reading history will appear here after your first saved reading.</div>';
+    };
+    render();
+    const reset=root.querySelector("#reset-tarot-journey");
+    if(reset&&!reset.dataset.bound){
+      reset.dataset.bound="1";
+      reset.addEventListener("click",()=>{
+        const confirmed=window.confirm("Start your Tarot Journey from zero? This will permanently delete your saved readings, journal entries, favourite cards, lesson progress and Tarot Lab progress from this browser.");
+        if(!confirmed)return;
+        ["oracleFavourites","oracleReadings","oracleJournalEntries","oracleFavouriteNotes","oracleLessons","oracleLab.v1"].forEach(key=>localStorage.removeItem(key));
+        render();
+        const status=root.querySelector("#journey-reset-status");
+        if(status)status.textContent="Your Tarot Journey has been reset. You can now start again from zero.";
+      });
+    }
   }
   reading();specialised();journal();favourites();daily();journey();
 })();
