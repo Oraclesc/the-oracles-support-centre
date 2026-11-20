@@ -27,6 +27,9 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Enrich card guides with original card-specific content
+        run: node scripts/enrich-card-guides.js
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
@@ -34,7 +37,7 @@ jobs:
 
       - name: Deploy site
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   deploy-retry-1:
     needs: deploy
