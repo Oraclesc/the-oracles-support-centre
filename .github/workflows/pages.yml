@@ -78,20 +78,22 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for attempt in 1 2 3 4 5; do
-            if curl -fsSL https://oraclesupportcentre.com/ads.txt -o /tmp/ads.txt && grep -Fq "google.com, pub-2517381819553976, DIRECT, f08c47fec0942fa0" /tmp/ads.txt; then
-              break
-            fi
-            if [ "$attempt" -eq 5 ]; then
-              echo "ads.txt is not publicly reachable with the expected publisher entry."
-              exit 1
-            fi
-            sleep 15
-          done
-          curl -fsSL https://oraclesupportcentre.com/ -o /tmp/home.html
-          grep -Fq "Your Daily Tarot Quest Awaits" /tmp/home.html
-          curl -fsSL https://oraclesupportcentre.com/queen-of-cups.html -o /tmp/queen.html
-          grep -Fq "emotional receptivity with discernment" /tmp/queen.html
-          curl -fsSL https://oraclesupportcentre.com/daily-quest.html -o /tmp/quest.html
-          grep -Fq "Daily Quest" /tmp/quest.html
+          fetch_check() {
+            local url="$1" file="$2" marker="$3"
+            for attempt in 1 2 3 4 5 6; do
+              code=$(curl -sSL -H 'Cache-Control: no-cache' -o "$file" -w '%{http_code}' "${url}?verify=${GITHUB_SHA}")
+              if [ "$code" = "200" ] && grep -Fq "$marker" "$file"; then
+                echo "PASS $url (HTTP $code)"
+                return 0
+              fi
+              echo "Attempt $attempt: $url returned HTTP $code or expected content was not present."
+              sleep 10
+            done
+            echo "FAIL $url did not return the expected live content."
+            exit 1
+          }
+          fetch_check "https://oraclesupportcentre.com/ads.txt" "/tmp/ads.txt" "google.com, pub-2517381819553976, DIRECT, f08c47fec0942fa0"
+          fetch_check "https://oraclesupportcentre.com/" "/tmp/home.html" "Your Daily Tarot Quest Awaits"
+          fetch_check "https://oraclesupportcentre.com/queen-of-cups.html" "/tmp/queen.html" "emotional receptivity with discernment"
+          fetch_check "https://oraclesupportcentre.com/daily-quest.html" "/tmp/quest.html" "Daily Quest"
           echo "Live homepage, Queen of Cups guide, Daily Quest page and ads.txt all passed."
