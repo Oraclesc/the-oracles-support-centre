@@ -14,7 +14,7 @@
 :root{color-scheme:dark;--gold:#d9b85f;--gold-light:#f4df9b;--ink:#10051d;--purple:#241039}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:Lato,Arial,sans-serif;color:#fff}
-body{min-height:100vh;overflow:hidden;background:radial-gradient(ellipse at 50% 37%,rgba(89,52,126,.48),transparent 44%),radial-gradient(ellipse at 80% 90%,rgba(74,42,105,.2),transparent 40%),linear-gradient(145deg,#1a0b2b 0%,#0d0618 52%,#07030e 100%);display:grid;place-items:center}
+body{min-height:100vh;overflow:hidden;background:linear-gradient(145deg,rgba(15,6,27,.76),rgba(7,3,14,.84)),url("images/moon.webp") center center/cover no-repeat fixed;display:grid;place-items:center}
 .sky{position:fixed;inset:0;pointer-events:none;opacity:.75;background-image:radial-gradient(1px 1px at 12% 18%,#fff 98%,transparent),radial-gradient(1px 1px at 79% 16%,#f4df9b 98%,transparent),radial-gradient(1.5px 1.5px at 88% 67%,#fff 98%,transparent),radial-gradient(1px 1px at 24% 77%,#fff 98%,transparent),radial-gradient(1px 1px at 62% 84%,#f4df9b 98%,transparent),radial-gradient(1px 1px at 43% 12%,#fff 98%,transparent);background-size:100% 100%}
 .welcome{position:relative;width:min(900px,calc(100% - 36px));padding:clamp(38px,7vw,76px) 24px;text-align:center;border:1px solid rgba(217,184,95,.25);border-radius:30px;background:linear-gradient(145deg,rgba(37,18,57,.72),rgba(12,5,22,.68));box-shadow:0 30px 100px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.05);backdrop-filter:blur(12px)}
 .brand{display:flex;align-items:center;justify-content:center;gap:16px;margin:0 auto 34px;color:var(--gold-light);font-family:Cinzel,Georgia,serif;font-size:clamp(18px,3vw,27px);font-weight:600;letter-spacing:.035em}
