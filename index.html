@@ -205,8 +205,17 @@ body.welcome-open{overflow:hidden}
   var enter=document.getElementById("enter-site");
   var main=document.getElementById("main-content");
   if(!screen||!enter||!main)return;
+  // Show the welcome screen only until the visitor has entered once.
+  try{
+    if(localStorage.getItem("oracleWelcomeSeen")==="1"){
+      screen.classList.add("is-hidden");
+      document.body.classList.remove("welcome-open");
+      return;
+    }
+  }catch(error){}
   enter.addEventListener("click",function(event){
     event.preventDefault();
+    try{localStorage.setItem("oracleWelcomeSeen","1");}catch(error){}
     screen.classList.add("is-hidden");
     document.body.classList.remove("welcome-open");
     history.replaceState(null,"",location.pathname+location.search);
