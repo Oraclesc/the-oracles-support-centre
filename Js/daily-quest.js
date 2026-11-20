@@ -50,8 +50,8 @@
   $("quest-instruction").textContent=quest.instruction;
   const response=$("quest-reflection"),button=$("complete-quest"),status=$("quest-status");
   if(current){response.value=current.reflection||"";response.disabled=true;button.disabled=true;button.textContent="Quest Completed ✓";status.textContent="You've completed today's quest. Your reflection is saved in your Tarot Journal.";}
-  const completed=history.map(x=>x.date);
-  const streak=()=>{let n=0,d=today;while(completed.includes(d)){n++;const p=new Date(d+"T12:00:00");p.setDate(p.getDate()-1);d=localDateFrom(p);}return n;};
+  const completed=()=>history.map(x=>x.date);
+  const streak=()=>{let n=0,d=today;while(completed().includes(d)){n++;const p=new Date(d+"T12:00:00");p.setDate(p.getDate()-1);d=localDateFrom(p);}return n;};
   function localDateFrom(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
   $("quest-streak").textContent=streak();
   $("quest-total").textContent=history.length;
