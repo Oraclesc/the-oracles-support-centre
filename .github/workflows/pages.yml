@@ -41,7 +41,7 @@ jobs:
 
   deploy-retry-1:
     needs: deploy
-    if: needs.deploy.result == 'failure'
+    if: always() && needs.deploy.result == 'failure'
     runs-on: ubuntu-latest
     permissions:
       pages: write
@@ -56,7 +56,7 @@ jobs:
 
   deploy-retry-2:
     needs: deploy-retry-1
-    if: needs.deploy-retry-1.result == 'failure'
+    if: always() && needs.deploy-retry-1.result == 'failure'
     runs-on: ubuntu-latest
     permissions:
       pages: write
