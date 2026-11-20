@@ -29,9 +29,15 @@ for (const card of cards) {
   const file = path.join(root, slug(card.name) + ".html");
   if (!fs.existsSync(file)) throw new Error("Missing guide page: " + path.basename(file));
   let html = fs.readFileSync(file, "utf8");
-  html = html.replace(/(<header class="site-header">[\\s\\S]*?<nav aria-label="Main navigation">)[\\s\\S]*?(<\\/nav>)/, (_, before, after) => before + sharedNav + after);
-  html = html.replace(/(<footer class="site-footer">[\\s\\S]*?<div class="footer-links">)[\\s\\S]*?(<\\/div>)/, (_, before, after) => before + sharedFooter + after);
-  if (preserved.has(card.name)) { fs.writeFileSync(file, html); continue; }
+  const navStart = html.indexOf('<nav aria-label="Main navigation">');
+  const navEnd = html.indexOf("</nav>", navStart);
+  if (navStart < 0 || navEnd < 0) throw new Error("Missing navigation: " + card.name);
+  html = html.slice(0, navStart) + '<nav aria-label="Main navigation">' + sharedNav + "</nav>" + html.slice(navEnd + 6);
+  const footerStart = html.indexOf("<footer");
+  const footerLinksStart = html.indexOf('<div class="footer-links">', footerStart);
+  const footerLinksEnd = html.indexOf("</div>", footerLinksStart);
+  if (footerLinksStart < 0 || footerLinksEnd < 0) throw new Error("Missing footer links: " + card.name);
+  html = html.slice(0, footerLinksStart) + '<div class="footer-links">' + sharedFooter + "</div>" + html.slice(footerLinksEnd + 6);
   const insight = insights[card.name];
   if (!insight || insight.length < 2) throw new Error("Missing editorial insight: " + card.name);
   const [first, example] = insight;
