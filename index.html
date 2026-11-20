@@ -38,6 +38,24 @@ body.welcome-open{overflow:hidden}
 .welcome-note{margin:30px 0 0;color:rgba(255,255,255,.72);font-size:14px;letter-spacing:.08em}
 @media(max-width:520px){.welcome-card{padding:42px 20px;border-radius:22px}.welcome-brand{flex-direction:column;gap:10px;margin-bottom:30px;font-size:22px}.welcome-intro{font-size:18px;line-height:1.75}.welcome-eyebrow{font-size:13px;letter-spacing:.15em}.welcome-enter{margin-top:32px}}
 @media(prefers-reduced-motion:reduce){#welcome-screen,.welcome-enter{transition:none}}
+
+#daily-quest-popup[hidden]{display:none}
+#daily-quest-popup{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;padding:20px;background:rgba(5,2,12,.78);backdrop-filter:blur(7px);opacity:0;transition:opacity .25s ease}
+#daily-quest-popup.is-visible{opacity:1}
+.daily-quest-popup-card{position:relative;width:min(520px,100%);padding:clamp(28px,5vw,44px);border:1px solid rgba(217,184,95,.42);border-radius:24px;background:radial-gradient(ellipse at 50% 0%,rgba(111,72,143,.32),transparent 65%),linear-gradient(145deg,#241337,#100819);box-shadow:0 28px 90px rgba(0,0,0,.55);text-align:center;color:#fff;transform:translateY(12px) scale(.98);transition:transform .25s ease}
+#daily-quest-popup.is-visible .daily-quest-popup-card{transform:translateY(0) scale(1)}
+.daily-quest-close{position:absolute;top:12px;right:14px;width:38px;height:38px;border:1px solid rgba(255,255,255,.2);border-radius:50%;background:rgba(255,255,255,.07);color:#fff;font-size:25px;line-height:1;cursor:pointer}
+.daily-quest-close:hover,.daily-quest-close:focus-visible{border-color:#f0d77d;color:#f0d77d;outline:2px solid #f0d77d;outline-offset:2px}
+.daily-quest-popup-icon{font-size:38px;margin-bottom:12px;color:#f0d77d}
+.daily-quest-popup-eyebrow{margin:0 0 10px;color:#d9b85f;font-family:Cinzel,Georgia,serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+#daily-quest-popup-title{margin:0;color:#f4df9b;font-family:Cinzel,Georgia,serif;font-size:clamp(27px,5vw,36px);line-height:1.2}
+.daily-quest-popup-copy{margin:16px auto 24px;max-width:410px;color:rgba(255,255,255,.86);line-height:1.75}
+.daily-quest-popup-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.daily-quest-popup-actions a{min-width:190px;text-align:center}
+.daily-quest-dismiss{padding:11px 18px;border:1px solid rgba(212,175,55,.32);border-radius:999px;background:rgba(255,255,255,.06);color:#fff;cursor:pointer}
+.daily-quest-dismiss:hover,.daily-quest-dismiss:focus-visible{border-color:#f0d77d;color:#f0d77d}
+@media(prefers-reduced-motion:reduce){#daily-quest-popup,.daily-quest-popup-card{transition:none}}
+
 </style>
 <script type="application/ld+json">
 {
@@ -196,6 +214,19 @@ body.welcome-open{overflow:hidden}
 <p class="footer-copy">© 2026 The Oracle's Support Centre<br>All Rights Reserved.</p>
 </footer>
 </div>
+<div id="daily-quest-popup" hidden>
+  <section class="daily-quest-popup-card" role="dialog" aria-modal="true" aria-labelledby="daily-quest-popup-title" aria-describedby="daily-quest-popup-description">
+    <button type="button" class="daily-quest-close" id="daily-quest-popup-close" aria-label="Close daily quest message">×</button>
+    <div class="daily-quest-popup-icon" aria-hidden="true">✧</div>
+    <p class="daily-quest-popup-eyebrow">A new day, a new discovery</p>
+    <h2 id="daily-quest-popup-title">Your Daily Tarot Quest Awaits</h2>
+    <p class="daily-quest-popup-copy" id="daily-quest-popup-description">Take a few minutes for a fresh tarot challenge. Reflect on the prompt, complete your quest and add your thoughts straight to your private Tarot Journal.</p>
+    <div class="daily-quest-popup-actions">
+      <a class="primary-button" id="daily-quest-popup-start" href="daily-quest.html">View Today's Quest →</a>
+      <button type="button" class="daily-quest-dismiss" id="daily-quest-popup-later">Maybe Later</button>
+    </div>
+  </section>
+</div>
 <script src="data/tarot-data.js"></script>
 <script src="Js/home-v2-final.js?v=2"></script>
 <script src="Js/home-journey.js?v=1"></script>
@@ -204,15 +235,44 @@ body.welcome-open{overflow:hidden}
   var screen=document.getElementById("welcome-screen");
   var enter=document.getElementById("enter-site");
   var main=document.getElementById("main-content");
-  if(!screen||!enter||!main)return;
-  // Show the welcome screen only until the visitor has entered once.
-  try{
-    if(localStorage.getItem("oracleWelcomeSeen")==="1"){
-      screen.classList.add("is-hidden");
-      document.body.classList.remove("welcome-open");
-      return;
-    }
-  }catch(error){}
+  var popup=document.getElementById("daily-quest-popup");
+  var close=document.getElementById("daily-quest-popup-close");
+  var later=document.getElementById("daily-quest-popup-later");
+  var start=document.getElementById("daily-quest-popup-start");
+  var storageKey="oracleDailyQuestPopupDismissed";
+  function todayKey(){
+    var d=new Date();
+    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  }
+  function dismissPopup(){
+    if(!popup||popup.hidden)return;
+    try{localStorage.setItem(storageKey,todayKey());}catch(error){}
+    popup.classList.remove("is-visible");
+    window.setTimeout(function(){popup.hidden=true;},260);
+  }
+  function showDailyQuest(){
+    if(!popup)return;
+    try{if(localStorage.getItem(storageKey)===todayKey())return;}catch(error){return;}
+    popup.hidden=false;
+    requestAnimationFrame(function(){popup.classList.add("is-visible");});
+    if(close)close.focus();
+  }
+  if(close)close.addEventListener("click",dismissPopup);
+  if(later)later.addEventListener("click",dismissPopup);
+  if(start)start.addEventListener("click",function(){try{localStorage.setItem(storageKey,todayKey());}catch(error){}});
+  if(popup)popup.addEventListener("click",function(event){if(event.target===popup)dismissPopup();});
+  document.addEventListener("keydown",function(event){
+    if(event.key==="Escape"&&popup&&!popup.hidden)dismissPopup();
+  });
+  if(!screen||!enter||!main){showDailyQuest();return;}
+  var welcomeSeen=false;
+  try{welcomeSeen=localStorage.getItem("oracleWelcomeSeen")==="1";}catch(error){}
+  if(welcomeSeen){
+    screen.classList.add("is-hidden");
+    document.body.classList.remove("welcome-open");
+    showDailyQuest();
+    return;
+  }
   enter.addEventListener("click",function(event){
     event.preventDefault();
     try{localStorage.setItem("oracleWelcomeSeen","1");}catch(error){}
@@ -221,6 +281,7 @@ body.welcome-open{overflow:hidden}
     history.replaceState(null,"",location.pathname+location.search);
     main.focus({preventScroll:true});
     window.scrollTo(0,0);
+    window.setTimeout(showDailyQuest,400);
   });
 })();
 </script>
