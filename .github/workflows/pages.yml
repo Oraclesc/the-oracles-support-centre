@@ -68,3 +68,30 @@ jobs:
       - name: Final GitHub Pages deployment retry
         id: deployment
         uses: actions/deploy-pages@v5
+
+  verify-live-site:
+    needs: [deploy, deploy-retry-1, deploy-retry-2]
+    if: always() && (needs.deploy.result == 'success' || needs.deploy-retry-1.result == 'success' || needs.deploy-retry-2.result == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify live homepage, card guide and ads.txt
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if curl -fsSL https://oraclesupportcentre.com/ads.txt -o /tmp/ads.txt && grep -Fq "google.com, pub-2517381819553976, DIRECT, f08c47fec0942fa0" /tmp/ads.txt; then
+              break
+            fi
+            if [ "$attempt" -eq 5 ]; then
+              echo "ads.txt is not publicly reachable with the expected publisher entry."
+              exit 1
+            fi
+            sleep 15
+          done
+          curl -fsSL https://oraclesupportcentre.com/ -o /tmp/home.html
+          grep -Fq "Your Daily Tarot Quest Awaits" /tmp/home.html
+          curl -fsSL https://oraclesupportcentre.com/queen-of-cups.html -o /tmp/queen.html
+          grep -Fq "emotional receptivity with discernment" /tmp/queen.html
+          curl -fsSL https://oraclesupportcentre.com/daily-quest.html -o /tmp/quest.html
+          grep -Fq "Daily Quest" /tmp/quest.html
+          echo "Live homepage, Queen of Cups guide, Daily Quest page and ads.txt all passed."
