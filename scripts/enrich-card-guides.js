@@ -23,11 +23,15 @@ function replaceArticle(html, heading, paragraph) {
   return html.replace(re, (_, before, after) => before + esc(paragraph) + after);
 }
 let changed = 0;
+const sharedNav = '<a href="index.html">Home</a><a href="reading.html">Free Reading</a><a href="cards.html">Tarot Cards</a><a href="guides.html">Guides</a><a href="tools.html">Tools</a><a href="horoscope.html">Horoscopes</a><a href="tarot-portal.html">Tarot Portal</a><a href="tarot-lab.html">Tarot Lab</a><a href="shop.html">Tarot Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a>';
+const sharedFooter = '<a href="index.html">Home</a><a href="reading.html">Free Reading</a><a href="cards.html">Tarot Cards</a><a href="guides.html">Guides</a><a href="tools.html">Tools</a><a href="horoscope.html">Horoscopes</a><a href="tarot-portal.html">Tarot Portal</a><a href="tarot-lab.html">Tarot Lab</a><a href="shop.html">Tarot Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a>';
 for (const card of cards) {
-  if (preserved.has(card.name)) continue;
   const file = path.join(root, slug(card.name) + ".html");
   if (!fs.existsSync(file)) throw new Error("Missing guide page: " + path.basename(file));
   let html = fs.readFileSync(file, "utf8");
+  html = html.replace(/(<header class="site-header">[\\s\\S]*?<nav aria-label="Main navigation">)[\\s\\S]*?(<\\/nav>)/, (_, before, after) => before + sharedNav + after);
+  html = html.replace(/(<footer class="site-footer">[\\s\\S]*?<div class="footer-links">)[\\s\\S]*?(<\\/div>)/, (_, before, after) => before + sharedFooter + after);
+  if (preserved.has(card.name)) { fs.writeFileSync(file, html); continue; }
   const insight = insights[card.name];
   if (!insight || insight.length < 2) throw new Error("Missing editorial insight: " + card.name);
   const [first, example] = insight;
