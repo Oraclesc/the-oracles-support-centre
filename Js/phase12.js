@@ -73,9 +73,9 @@
     if(reset&&!reset.dataset.bound){
       reset.dataset.bound="1";
       reset.addEventListener("click",()=>{
-        const confirmed=window.confirm("Start your Tarot Journey from zero? This will permanently delete your saved readings, journal entries, favourite cards, lesson progress and Tarot Lab progress from this browser.");
+        const confirmed=window.confirm("Start your Tarot Journey from zero? This will permanently delete your saved readings, journal entries, favourite cards, lesson and study progress, Daily Quest history and streak, and Tarot Lab progress from this browser.");
         if(!confirmed)return;
-        ["oracleFavourites","oracleReadings","oracleJournalEntries","oracleFavouriteNotes","oracleLessons","oracleLab.v1"].forEach(key=>localStorage.removeItem(key));
+        ["oracleFavourites","oracleReadings","oracleJournalEntries","oracleFavouriteNotes","oracleLessons","oracleStudyVisits","oracleDailyQuests.v1","oracleLab.v1"].forEach(key=>localStorage.removeItem(key));
         render();
         const status=root.querySelector("#journey-reset-status");
         if(status)status.textContent="Your Tarot Journey has been reset. You can now start again from zero.";
