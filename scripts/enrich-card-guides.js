@@ -38,6 +38,7 @@ for (const card of cards) {
   const footerLinksEnd = html.indexOf("</div>", footerLinksStart);
   if (footerLinksStart < 0 || footerLinksEnd < 0) throw new Error("Missing footer links: " + card.name);
   html = html.slice(0, footerLinksStart) + '<div class="footer-links">' + sharedFooter + "</div>" + html.slice(footerLinksEnd + 6);
+  if (preserved.has(card.name)) { fs.writeFileSync(file, html); continue; }
   const insight = insights[card.name];
   if (!insight || insight.length < 2) throw new Error("Missing editorial insight: " + card.name);
   const [first, example] = insight;
