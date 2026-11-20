@@ -35,3 +35,33 @@ jobs:
       - name: Deploy site
         id: deployment
         uses: actions/deploy-pages@v4
+
+  deploy-retry-1:
+    needs: deploy
+    if: needs.deploy.result == 'failure'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Retry GitHub Pages deployment
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+  deploy-retry-2:
+    needs: deploy-retry-1
+    if: needs.deploy-retry-1.result == 'failure'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Final GitHub Pages deployment retry
+        id: deployment
+        uses: actions/deploy-pages@v5
