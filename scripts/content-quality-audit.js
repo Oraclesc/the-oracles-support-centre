@@ -39,6 +39,11 @@ function checkDeck(deck, label, filename) {
       if (!html.includes(heading)) errors.push(file + " is missing section: " + heading);
     if (label === "Tarot de Marseille" && !strip(html).includes(card.upright))
       errors.push(file + " does not retain its card-specific source upright meaning.");
+    if (label === "Tarot de Marseille" && card.suit !== "Major Arcana") {
+      const court = ["Page", "Knight", "Queen", "King"].includes(card.name.split(" ")[0]);
+      if (court && (!text.includes("court card") || text.includes("pip card"))) errors.push(file + " confuses Marseille court-card imagery with pip-card patterns.");
+      if (!court && (!text.includes("pip card") || !text.includes("pip arrangement"))) errors.push(file + " is missing its Marseille pip-card visual method.");
+    }
     const blocks = [...html.matchAll(/<article class="tool-card"><h2>([^<]+)<\/h2><p>([\s\S]*?)<\/p>/gi)];
     for (const block of blocks) {
       const p = strip(block[2]);
