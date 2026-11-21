@@ -34,6 +34,10 @@ jobs:
       - name: Audit all 156 card guides and validate JavaScript syntax
         run: |
           node --check Js/tools.js
+          node --check Js/tarot-lab.js
+          node --check Js/daily-quest.js
+          node --check Js/phase12.js
+          node --check Js/phase3.js
           node --check scripts/generate-card-guides.js
           node --check scripts/generate-marseille-guides.js
           node scripts/content-quality-audit.js
