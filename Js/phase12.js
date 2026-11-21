@@ -73,12 +73,13 @@
     if(reset&&!reset.dataset.bound){
       reset.dataset.bound="1";
       reset.addEventListener("click",()=>{
-        const confirmed=window.confirm("Start your Tarot Journey from zero? This will permanently delete your saved readings, journal entries, favourite cards, lesson and study progress, Daily Quest history and streak, and Tarot Lab progress from this browser.");
+        const confirmed=window.confirm("Start your Tarot Journey from zero? This will permanently delete saved readings, journal entries, favourite cards and notes, Ask the Tarot question history, lesson and study progress, Daily Quest history and streak, and Tarot Lab progress from this browser.");
         if(!confirmed)return;
-        ["oracleFavourites","oracleReadings","oracleJournalEntries","oracleFavouriteNotes","oracleLessons","oracleStudyVisits","oracleDailyQuests.v1","oracleLab.v1"].forEach(key=>localStorage.removeItem(key));
+        let cleared=true;
+        try{["oracleFavourites","oracleReadings","oracleJournalEntries","oracleFavouriteNotes","oracleAskHistory","oracleLessons","oracleStudyVisits","oracleDailyQuests.v1","oracleLab.v1"].forEach(key=>localStorage.removeItem(key))}catch(error){cleared=false;console.warn("Could not clear all browser progress.",error)}
         render();
         const status=root.querySelector("#journey-reset-status");
-        if(status)status.textContent="Your Tarot Journey has been reset. You can now start again from zero.";
+        if(status)status.textContent=cleared?"Your Tarot Journey has been reset. You can now start again from zero.":"Your browser prevented some stored progress from being cleared. Use your browser site-data settings to remove any remaining Oracle Support Centre data.";
       });
     }
   }
