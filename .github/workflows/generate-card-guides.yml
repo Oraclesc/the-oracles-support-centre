@@ -37,5 +37,8 @@ jobs:
             echo "No generated guide changes."
           else
             git commit -m "Refresh card guides and optimize image assets"
+            # Other direct commits may land while guides are being generated.
+            # Rebase the generated files onto the latest main before pushing.
+            git pull --rebase origin main
             git push
           fi
