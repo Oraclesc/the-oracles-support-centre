@@ -30,6 +30,9 @@ jobs:
       - name: Enrich card guides with original card-specific content
         run: node scripts/enrich-card-guides.js
 
+      - name: Standardise navigation and audit internal links, assets and sitemap
+        run: node scripts/site-audit.js
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
