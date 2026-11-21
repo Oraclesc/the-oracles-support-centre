@@ -24,7 +24,7 @@
 <div class="sign-select-wrap"><label for="sign-filter">Show a sign:</label><select id="sign-filter"><option value="all">All 12 signs</option></select></div>
 <section id="zodiac-grid" class="zodiac-grid" aria-live="polite"></section>
 <aside class="horoscope-note"><strong>Astrology and Tarot are reflective traditions, not guarantees.</strong> Use these readings as prompts for curiosity and personal reflection, rather than as certain predictions or substitutes for professional advice.</aside>
-<p class="horoscope-credit">Daily horoscope content provided by <a href="https://www.freehoroscopeapi.com/" target="_blank" rel="noopener noreferrer">FreeHoroscopeAPI</a>. Free use with attribution.</p>
+<p class="horoscope-credit">Horoscope readings are <a href="https://www.freehoroscopeapi.com/" target="_blank" rel="noopener noreferrer">Powered by FreeHoroscopeAPI</a>. Used under its free API terms with attribution.</p>
 </main>
 <footer class="site-footer"><div class="footer-logo">🌙 The Oracle's Support Centre</div><p class="footer-tagline">Free Tarot Readings • Personal Reflection • Guidance</p><div class="footer-links"><a href="index.html">Home</a><a href="reading.html">Free Reading</a><a href="cards.html">Tarot Cards</a><a href="guides.html">Guides</a><a href="horoscope.html">Horoscopes</a><a href="tools.html">Tools</a><a href="about.html">About</a><a href="contact.html">Contact</a></div><p class="footer-copy">© 2026 The Oracle's Support Centre<br>All Rights Reserved.</p></footer>
 </div>
@@ -74,7 +74,7 @@ if(!textValue){
 const response=await fetch("https://freehoroscopeapi.com/api/v1/get-horoscope/daily?sign="+encodeURIComponent(sign.key),{headers:{Accept:"application/json"}});
 if(!response.ok)throw new Error("Horoscope service returned "+response.status);
 const json=await response.json(),data=json&&json.data;
-if(!data||!data.horoscope)throw new Error("No horoscope text returned");
+if(!data||!data.horoscope||String(data.sign||"").toLowerCase()!==sign.key||data.period!=="daily")throw new Error("The horoscope service returned an incomplete or mismatched reading");
 textValue=data.horoscope;
 try{localStorage.setItem(cacheKey,JSON.stringify({date:dateKey,text:textValue}));}catch(e){}
 }
