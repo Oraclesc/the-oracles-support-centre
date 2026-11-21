@@ -120,12 +120,21 @@ const addContextualLinks=()=>{
   const excluded=["index.html","tarot-portal.html","tarot-library.html","guides.html","tools.html","tarot-lab.html","tarot-school.html"];
   if(excluded.includes(page))return;
 
-  const cardPages=/^(the-|ace-of-|two-of-|three-of-|four-of-|five-of-|six-of-|seven-of-|eight-of-|nine-of-|ten-of-|page-of-|knight-of-|queen-of-|king-of-).+\\.html$/.test(page);
+  const marseillePages=/^marseille-.+\\.html$/.test(page);
+  const cardPages=marseillePages || /^(the-|ace-of-|two-of-|three-of-|four-of-|five-of-|six-of-|seven-of-|eight-of-|nine-of-|ten-of-|page-of-|knight-of-|queen-of-|king-of-).+\\.html$/.test(page);
   const majorPages=["major-arcana.html","the-fool.html","the-magician.html","the-high-priestess.html","the-empress.html","the-emperor.html","the-hierophant.html","the-lovers.html","the-chariot.html","strength.html","the-hermit.html","wheel-of-fortune.html","justice.html","the-hanged-man.html","death.html","temperance.html","the-devil.html","the-tower.html","the-star.html","the-moon.html","the-sun.html","judgement.html","the-world.html"];
   const suitPages=["minor-arcana.html","wands.html","cups.html","swords.html","pentacles.html"];
 
   let links;
-  if(cardPages){
+  if(marseillePages){
+    links=[
+      ["cards.html?deck=marseille","Browse all 78 Tarot de Marseille cards"],
+      ["tarot-history.html","Explore the history of Tarot de Marseille"],
+      ["tarot-reading-workbook.html","Practise a grounded Tarot reading"],
+      ["tarot-combinations.html","Learn how card combinations work"],
+      ["tarot-journal-prompts.html","Use journal prompts to deepen your reading"]
+    ];
+  }else if(cardPages){
     links=[
       ["tarot-card-contexts.html","Explore this card in Love, Career & Yes/No contexts"],
       ["tarot-card-combinations.html","Learn how card combinations work"],
@@ -209,9 +218,11 @@ const addRelatedCardLinks=()=>{
   const main=document.querySelector("main");
   if(!main || main.querySelector(".related-card-links"))return;
   const page=(location.pathname.split("/").pop()||"").toLowerCase();
-  const card=tarotCards.find(c=>cardUrl(c)===page);
+  const isMarseille=page.startsWith("marseille-");
+  const source=isMarseille&&typeof marseilleCards!=="undefined"?marseilleCards:tarotCards;
+  const card=source.find(c=>(c.guideUrl||cardUrl(c))===page);
   if(!card)return;
-  const index=tarotCards.indexOf(card);
+  const index=source.indexOf(card);
   /* Add a card-specific worked application so the 78 guides teach interpretation,
      not only repeat a fixed page template. */
   if(!main.querySelector(".worked-card-application")){
@@ -226,11 +237,11 @@ const addRelatedCardLinks=()=>{
   }
   let related=[];
   if(index>=0 && index<22){
-    related=[tarotCards[index-1],tarotCards[index+1],tarotCards[Math.max(0,index-2)],tarotCards[Math.min(21,index+2)]];
+    related=[source[index-1],source[index+1],source[Math.max(0,index-2)],source[Math.min(21,index+2)]];
   }else{
-    const suit=card.category;
-    related=tarotCards.filter(c=>c!==card && c.category===suit).slice(Math.max(0,index-2),index+3);
-    if(related.length<4)related=tarotCards.filter(c=>c!==card && c.category===suit).slice(0,4);
+    const suit=isMarseille?card.suit:card.category;
+    related=source.filter(c=>c!==card && (isMarseille?c.suit:c.category)===suit).slice(Math.max(0,index-2),index+3);
+    if(related.length<4)related=source.filter(c=>c!==card && (isMarseille?c.suit:c.category)===suit).slice(0,4);
   }
   related=related.filter(Boolean).filter((c,i,a)=>a.findIndex(x=>x.name===c.name)===i).slice(0,4);
   if(!related.length)return;
@@ -242,7 +253,7 @@ const addRelatedCardLinks=()=>{
   related.forEach(c=>{
     const a=document.createElement("a");
     a.className="secondary-button";
-    a.href=cardUrl(c);
+    a.href=isMarseille?(c.guideUrl||"#"):cardUrl(c);
     a.textContent=c.name;
     actions.appendChild(a);
   });
