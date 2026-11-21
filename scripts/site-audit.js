@@ -74,6 +74,14 @@ function checkTarget(source, raw, kind) {
 }
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
+  const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1];
+  const description = (html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i) || [])[1];
+  const canonical = (html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i) || [])[1];
+  if (!title || !title.trim()) errors.push(file + " is missing a page title.");
+  if (!description || !description.trim()) errors.push(file + " is missing a meta description.");
+  const expectedCanonical = "https://oraclesupportcentre.com/" + (file === "index.html" ? "" : file);
+  if (canonical !== expectedCanonical) errors.push(file + " has a missing or incorrect canonical URL (expected " + expectedCanonical + ").");
+  if (!/<h1\b/i.test(html)) errors.push(file + " is missing its main H1 heading.");
   for (const match of html.matchAll(/<(a|area)\b[^>]*href=["']([^"']+)["']/gi)) checkTarget(file, match[2], "link");
   for (const match of html.matchAll(/<(script|img|source|iframe|video|audio)\b[^>]*src=["']([^"']+)["']/gi)) checkTarget(file, match[2], "asset");
   for (const match of html.matchAll(/<link\b[^>]*href=["']([^"']+)["']/gi)) checkTarget(file, match[1], "asset");
