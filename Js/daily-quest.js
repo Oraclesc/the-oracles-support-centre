@@ -56,7 +56,7 @@
   $("quest-streak").textContent=streak();
   $("quest-total").textContent=history.length;
   const list=$("quest-history");
-  list.innerHTML=history.length?history.slice(0,7).map(x=>'<article class="journal-entry quest-history-item"><div class="journal-meta"><span>'+new Date(x.date+"T12:00:00").toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short",year:"numeric"})+'</span><span class="pill">'+x.category+'</span></div><h3>'+x.title+'</h3><p>'+String(x.reflection||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))+'</p></article>').join(""):'<div class="empty-state">Your completed quests will appear here. Complete today's quest to start your record.</div>';
+  list.innerHTML=history.length?history.slice(0,7).map(x=>'<article class="journal-entry quest-history-item"><div class="journal-meta"><span>'+new Date(x.date+"T12:00:00").toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short",year:"numeric"})+'</span><span class="pill">'+x.category+'</span></div><h3>'+x.title+'</h3><p>'+String(x.reflection||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))+'</p></article>').join(""):'<div class="empty-state">Your completed quests will appear here. Complete today&#39;s quest to start your record.</div>';
   button.addEventListener("click",()=>{
     if(history.some(x=>x.date===today)){status.textContent="Today's quest is already complete.";return;}
     const reflection=response.value.trim();
