@@ -15,8 +15,8 @@ const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&
 const addXP=n=>{state.xp+=n;save();renderStats();if($("labStats"))renderStatsLab()};
 function renderStats(){
  $("xp").textContent=state.xp;$("readingCount").textContent=state.readings.length+readShared("oracleReadings").length;$("journalCount").textContent=state.journal.length+readShared("oracleJournalEntries").length;$("studyCount").textContent=state.studied.length;
- const level=Math.floor(state.xp/100)+1, into=state.xp%100;$("levelText").textContent="Level "+level+" • "+into+"/100 XP to the next level";$("xpBar").style.width=into+"%";
- const defs=[["🏅 First Steps",state.xp>=20],["📖 First Journal",state.journal.length>=1],["🎴 10 Cards Studied",state.studied.length>=10],["🧠 Quiz Explorer",state.quiz>=5],["🔥 7 Practice Tasks",state.practice.length>=7],["🗺 Major Arcana Explorer",state.studied.filter(n=>{const c=cardByName(n);return c&&group(c)==="Major Arcana"}).length>=22],["📚 50 Journal Entries",state.journal.length>=50],["✨ 100 XP",state.xp>=100]];
+ const level=Math.floor(state.xp/100)+1, into=state.xp%100, journalTotal=state.journal.length+readShared("oracleJournalEntries").length;$("levelText").textContent="Level "+level+" • "+into+"/100 XP to the next level";$("xpBar").style.width=into+"%";
+ const defs=[["🏅 First Steps",state.xp>=20],["📖 First Journal",journalTotal>=1],["🎴 10 Cards Studied",state.studied.length>=10],["🧠 Quiz Explorer",state.quiz>=5],["🔥 7 Practice Tasks",state.practice.length>=7],["🗺 Major Arcana Explorer",state.studied.filter(n=>{const c=cardByName(n);return c&&group(c)==="Major Arcana"}).length>=22],["📚 50 Journal Entries",journalTotal>=50],["✨ 100 XP",state.xp>=100]];
  $("achievements").innerHTML=defs.map(d=>'<span class="achievement '+(d[1]?"":"locked")+'">'+d[0]+"</span>").join("");
 }
 function initDaily(){
