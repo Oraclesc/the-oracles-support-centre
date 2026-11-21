@@ -27,15 +27,15 @@ for (const file of htmlFiles) {
     html = html.slice(0, start) + nav + html.slice(end + 6);
     normalised++;
   }
-  const mainMatch = html.match(/<main\\b[^>]*>/i);
+  const mainMatch = html.match(/<main\b[^>]*>/i);
   if (mainMatch) {
-    let mainId = (mainMatch[0].match(/\\bid=["']([^"']+)["']/i) || [])[1];
+    let mainId = (mainMatch[0].match(/\bid=["']([^"']+)["']/i) || [])[1];
     if (!mainId) {
       mainId = "main-content";
       html = html.replace(mainMatch[0], mainMatch[0].slice(0, -1) + ' id="' + mainId + '">');
     }
-    if (!/class=["'][^"']*\\bskip-link\\b/i.test(html)) {
-      const bodyMatch = html.match(/<body\\b[^>]*>/i);
+    if (!/class=["'][^"']*\bskip-link\b/i.test(html)) {
+      const bodyMatch = html.match(/<body\b[^>]*>/i);
       if (bodyMatch) html = html.replace(bodyMatch[0], bodyMatch[0] + '<a class="skip-link" href="#' + mainId + '">Skip to main content</a>');
     }
   }
