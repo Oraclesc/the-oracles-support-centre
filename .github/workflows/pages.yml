@@ -116,6 +116,6 @@ jobs:
           }
           fetch_check "https://oraclesupportcentre.com/ads.txt" "/tmp/ads.txt" "google.com, pub-2517381819553976, DIRECT, f08c47fec0942fa0"
           fetch_check "https://oraclesupportcentre.com/" "/tmp/home.html" "Your Daily Tarot Quest Awaits"
-          fetch_check "https://oraclesupportcentre.com/queen-of-cups.html" "/tmp/queen.html" "emotional receptivity with discernment"
+          fetch_check "https://oraclesupportcentre.com/queen-of-cups.html" "/tmp/queen.html" "Queen of Cups brings empathy, intuition and care into focus"
           fetch_check "https://oraclesupportcentre.com/daily-quest.html" "/tmp/quest.html" "Daily Tarot Quest"
           echo "Live homepage, Queen of Cups guide, Daily Quest page and ads.txt all passed."
