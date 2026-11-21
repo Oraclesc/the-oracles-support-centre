@@ -13,7 +13,7 @@ const generator = fs.readFileSync(path.join(__dirname, "generate-card-guides.js"
 const insightMatch = generator.match(/const cardInsights = (\{[\s\S]*?\n\});\nfunction rank/);
 if (!insightMatch) throw new Error("Could not read the authored card-specific insight library.");
 const insights = vm.runInNewContext("(" + insightMatch[1] + ")");
-const preserved = new Set(["Queen of Cups", "The Fool", "Ace of Cups"]);
+const preserved = new Set();
 const esc = value => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const slug = name => name.toLowerCase().replace(/the /g, "the-").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 function replaceArticle(html, heading, paragraph) {
