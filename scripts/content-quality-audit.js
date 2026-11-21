@@ -37,7 +37,7 @@ function checkDeck(deck, label, filename) {
     if (text.split(" ").length < 350) errors.push(file + " is too thin (" + text.split(" ").length + " words).");
     for (const heading of ["Upright Meaning", "Reversed Meaning", "Love & Relationships", "Career & Work", "Personal Growth"])
       if (!html.includes(heading)) errors.push(file + " is missing section: " + heading);
-    if (label === "Tarot de Marseille" && !html.includes(escapeHtml(card.upright)))
+    if (label === "Tarot de Marseille" && !strip(html).includes(card.upright))
       errors.push(file + " does not retain its card-specific source upright meaning.");
     const blocks = [...html.matchAll(/<article class="tool-card"><h2>([^<]+)<\/h2><p>([\s\S]*?)<\/p>/gi)];
     for (const block of blocks) {
