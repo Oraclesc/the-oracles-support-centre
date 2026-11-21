@@ -118,4 +118,5 @@ jobs:
           fetch_check "https://oraclesupportcentre.com/marseille-queen-of-cups.html" "/tmp/marseille.html" "In Marseille readings, its court role"
           fetch_check "https://oraclesupportcentre.com/tarot-school.html" "/tmp/school.html" "A Simple Weekly Study Routine"
           fetch_check "https://oraclesupportcentre.com/horoscope.html" "/tmp/horoscope.html" "Powered by FreeHoroscopeAPI"
-          echo "Live homepage, Rider–Waite and Marseille guides, learning hub, horoscope attribution, Daily Quest and ads.txt all passed."
+          fetch_check "https://oraclesupportcentre.com/tools.html" "/tmp/tools.html" "Daily Horoscope"
+          echo "Live homepage, Rider–Waite and Marseille guides, learning hub, horoscope attribution, Tools directory, Daily Quest and ads.txt all passed."
