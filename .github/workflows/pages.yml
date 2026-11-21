@@ -113,4 +113,7 @@ jobs:
           fetch_check "https://oraclesupportcentre.com/" "/tmp/home.html" "Your Daily Tarot Quest Awaits"
           fetch_check "https://oraclesupportcentre.com/queen-of-cups.html" "/tmp/queen.html" "Queen of Cups brings empathy, intuition and care into focus"
           fetch_check "https://oraclesupportcentre.com/daily-quest.html" "/tmp/quest.html" "Daily Tarot Quest"
-          echo "Live homepage, Queen of Cups guide, Daily Quest page and ads.txt all passed."
+          fetch_check "https://oraclesupportcentre.com/marseille-queen-of-cups.html" "/tmp/marseille.html" "In Marseille readings, its court role"
+          fetch_check "https://oraclesupportcentre.com/tarot-school.html" "/tmp/school.html" "A Simple Weekly Study Routine"
+          fetch_check "https://oraclesupportcentre.com/horoscope.html" "/tmp/horoscope.html" "Powered by FreeHoroscopeAPI"
+          echo "Live homepage, Rider–Waite and Marseille guides, learning hub, horoscope attribution, Daily Quest and ads.txt all passed."
