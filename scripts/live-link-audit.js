@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const root = path.join(__dirname, "..");
 const base = "https://oraclesupportcentre.com";
+async function main() {
 const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
 const urls = [...sitemap.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)].map(m => m[1]);
 const targets = new Set(urls);
@@ -41,3 +42,5 @@ if (failures.length) {
   process.exit(1);
 }
 console.log("Live link audit passed: " + checked + " same-origin pages, links and assets returned successful HTTP responses.");
+}
+main().catch(error => { console.error(error); process.exit(1); });
