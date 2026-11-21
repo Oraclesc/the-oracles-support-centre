@@ -47,6 +47,7 @@ const signs=[
 ];
 const grid=document.getElementById("zodiac-grid"),filter=document.getElementById("sign-filter"),dateLabel=document.getElementById("horoscope-date");
 const today=new Date(),dateKey=[today.getFullYear(),String(today.getMonth()+1).padStart(2,"0"),String(today.getDate()).padStart(2,"0")].join("-");
+try{for(let i=localStorage.length-1;i>=0;i--){const key=localStorage.key(i);if(key&&key.startsWith("oracle-horoscope-")&&!key.startsWith("oracle-horoscope-"+dateKey+"-"))localStorage.removeItem(key)}}catch(error){}
 dateLabel.textContent=today.toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"});
 filter.innerHTML+="";
 signs.forEach(s=>{const o=document.createElement("option");o.value=s.key;o.textContent=s.name;filter.appendChild(o);});
