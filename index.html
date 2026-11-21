@@ -232,57 +232,112 @@ body.welcome-open{overflow:hidden}
 <script src="Js/home-journey.js?v=1"></script>
 <script>
 (function(){
+  "use strict";
   var screen=document.getElementById("welcome-screen");
   var enter=document.getElementById("enter-site");
   var main=document.getElementById("main-content");
   var popup=document.getElementById("daily-quest-popup");
+  var popupCard=popup&&popup.querySelector(".daily-quest-popup-card");
   var close=document.getElementById("daily-quest-popup-close");
   var later=document.getElementById("daily-quest-popup-later");
   var start=document.getElementById("daily-quest-popup-start");
+  var welcomeTitle=document.getElementById("welcome-title");
   var storageKey="oracleDailyQuestPopupDismissed";
+  var welcomeStorageKey="oracleWelcomeSeen";
+  var previousFocus=null;
+  var popupOpen=false;
   function todayKey(){
     var d=new Date();
     return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
   }
-  function dismissPopup(){
-    if(!popup||popup.hidden)return;
-    try{localStorage.setItem(storageKey,todayKey());}catch(error){}
-    popup.classList.remove("is-visible");
-    window.setTimeout(function(){popup.hidden=true;},260);
+  function safeGet(key){
+    try{return window.localStorage.getItem(key);}catch(error){return null;}
+  }
+  function safeSet(key,value){
+    try{window.localStorage.setItem(key,value);return true;}catch(error){return false;}
+  }
+  function focusable(container){
+    return Array.prototype.slice.call(container.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'))
+      .filter(function(el){return !el.hidden&&el.getAttribute("aria-hidden")!=="true";});
+  }
+  function openWelcome(){
+    if(!screen)return;
+    screen.classList.remove("is-hidden");
+    document.body.classList.add("welcome-open");
+    if(enter)enter.focus();
+  }
+  function closeWelcome(){
+    if(!screen)return;
+    screen.classList.add("is-hidden");
+    document.body.classList.remove("welcome-open");
+    if(main)main.focus({preventScroll:true});
   }
   function showDailyQuest(){
-    if(!popup)return;
-    try{if(localStorage.getItem(storageKey)===todayKey())return;}catch(error){return;}
+    if(!popup||safeGet(storageKey)===todayKey())return;
+    previousFocus=document.activeElement;
     popup.hidden=false;
-    requestAnimationFrame(function(){popup.classList.add("is-visible");});
-    if(close)close.focus();
+    popupOpen=true;
+    document.body.style.overflow="hidden";
+    requestAnimationFrame(function(){
+      popup.classList.add("is-visible");
+      if(close)close.focus();
+    });
+  }
+  function dismissPopup(){
+    if(!popup||popup.hidden)return;
+    safeSet(storageKey,todayKey());
+    popup.classList.remove("is-visible");
+    popupOpen=false;
+    document.body.style.overflow="";
+    window.setTimeout(function(){
+      popup.hidden=true;
+      if(previousFocus&&typeof previousFocus.focus==="function"&&!screen?.classList.contains("is-hidden"))previousFocus.focus();
+      else if(main)main.focus({preventScroll:true});
+    },260);
   }
   if(close)close.addEventListener("click",dismissPopup);
   if(later)later.addEventListener("click",dismissPopup);
-  if(start)start.addEventListener("click",function(){try{localStorage.setItem(storageKey,todayKey());}catch(error){}});
+  if(start)start.addEventListener("click",function(){safeSet(storageKey,todayKey());});
   if(popup)popup.addEventListener("click",function(event){if(event.target===popup)dismissPopup();});
   document.addEventListener("keydown",function(event){
-    if(event.key==="Escape"&&popup&&!popup.hidden)dismissPopup();
+    if(popupOpen&&popupCard){
+      if(event.key==="Escape"){event.preventDefault();dismissPopup();return;}
+      if(event.key==="Tab"){
+        var items=focusable(popupCard);
+        if(!items.length){event.preventDefault();return;}
+        var first=items[0],last=items[items.length-1];
+        if(event.shiftKey&&(document.activeElement===first||!popupCard.contains(document.activeElement))){event.preventDefault();last.focus();}
+        else if(!event.shiftKey&&(document.activeElement===last||!popupCard.contains(document.activeElement))){event.preventDefault();first.focus();}
+      }
+      return;
+    }
+    if(screen&&!screen.classList.contains("is-hidden")){
+      if(event.key==="Tab"){
+        var welcomeItems=focusable(screen);
+        if(welcomeItems.length){
+          var firstWelcome=welcomeItems[0],lastWelcome=welcomeItems[welcomeItems.length-1];
+          if(event.shiftKey&&(document.activeElement===firstWelcome||!screen.contains(document.activeElement))){event.preventDefault();lastWelcome.focus();}
+          else if(!event.shiftKey&&(document.activeElement===lastWelcome||!screen.contains(document.activeElement))){event.preventDefault();firstWelcome.focus();}
+        }
+      }
+      if(event.key==="Escape")event.preventDefault();
+    }
   });
   if(!screen||!enter||!main){showDailyQuest();return;}
-  var welcomeSeen=false;
-  try{welcomeSeen=localStorage.getItem("oracleWelcomeSeen")==="1";}catch(error){}
-  if(welcomeSeen){
-    screen.classList.add("is-hidden");
-    document.body.classList.remove("welcome-open");
+  if(safeGet(welcomeStorageKey)==="1"){
+    closeWelcome();
     showDailyQuest();
-    return;
+  }else{
+    openWelcome();
+    enter.addEventListener("click",function(event){
+      event.preventDefault();
+      safeSet(welcomeStorageKey,"1");
+      closeWelcome();
+      history.replaceState(null,"",location.pathname+location.search);
+      window.scrollTo(0,0);
+      window.setTimeout(showDailyQuest,400);
+    });
   }
-  enter.addEventListener("click",function(event){
-    event.preventDefault();
-    try{localStorage.setItem("oracleWelcomeSeen","1");}catch(error){}
-    screen.classList.add("is-hidden");
-    document.body.classList.remove("welcome-open");
-    history.replaceState(null,"",location.pathname+location.search);
-    main.focus({preventScroll:true});
-    window.scrollTo(0,0);
-    window.setTimeout(showDailyQuest,400);
-  });
 })();
 </script>
 </body>
