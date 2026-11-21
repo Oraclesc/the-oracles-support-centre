@@ -67,6 +67,7 @@ const sitemap = fs.readFileSync(path.join(root, "sitemap.xml"), "utf8");
 for (const file of [...rider.map(c => slug(c.name)), ...marseille.map(c => c.guideUrl)])
   if (!sitemap.includes("https://oraclesupportcentre.com/" + file)) errors.push("Sitemap missing card guide: " + file);
 const repeats = [...duplicateParagraphs].filter(([, pages]) => pages.length > 3);
+if (repeats.length) errors.push("Found " + repeats.length + " repeated substantive paragraphs shared by more than three card-guide sections.");
 console.log("Card content audit: " + rider.length + " Rider–Waite–Smith guides and " + marseille.length + " Marseille guides checked.");
 console.log("Unique names/URLs, source meanings, card headings, canonical URLs, minimum content, key sections and sitemap coverage checked.");
 console.log("Repeated substantive card-section paragraphs across more than three pages: " + repeats.length + ".");
