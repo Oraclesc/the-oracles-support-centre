@@ -64,6 +64,10 @@ for (const file of htmlFiles) {
       footerNormalised++;
     }
   }
+  if (!html.includes("privacy-settings-handler") && !html.includes('src="Js/tools.js"')) {
+    const privacyHandler = '<script>/*privacy-settings-handler*/document.addEventListener("click",function(event){const link=event.target.closest&&event.target.closest("#privacy-settings-link");if(link&&window.googlefc&&typeof window.googlefc.showRevocationMessage==="function"){event.preventDefault();window.googlefc.showRevocationMessage();}});</script>';
+    html = html.replace("</body>", privacyHandler + "</body>");
+  }
   if (html !== original) fs.writeFileSync(full, html);
 }
 const errors = [];
