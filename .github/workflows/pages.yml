@@ -31,6 +31,12 @@ jobs:
 
       - name: Enrich card guides with original card-specific content
         run: node scripts/enrich-card-guides.js
+      - name: Audit all 156 card guides and validate JavaScript syntax
+        run: |
+          node --check Js/tools.js
+          node --check scripts/generate-card-guides.js
+          node --check scripts/generate-marseille-guides.js
+          node scripts/content-quality-audit.js
 
       - name: Standardise navigation and audit internal links, assets and sitemap
         run: node scripts/site-audit.js
