@@ -233,19 +233,21 @@ const addRelatedCardLinks=()=>{
     worked.style.marginTop="22px";
     const keywords=(card.keywords||[]).slice(0,3).join(", ");
     const safe=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-    worked.innerHTML='<article class="about-section"><div class="about-symbol">✦</div><div><h2>Worked Example: Applying '+safe(card.name)+'</h2><p><strong>Practice question:</strong> “What deserves my attention in this situation?”</p><p><strong>First, name the theme:</strong> '+safe(card.name)+' is associated here with '+safe(keywords||card.category||"traditional themes")+'. Treat these as interpretive starting points, not facts about your future.</p><p><strong>One possible interpretation:</strong> '+safe(card.upright||"Consider the traditional card themes in the context of your question.")+' Ask what real situation or behaviour this might describe, and what evidence supports that connection.</p><p><strong>Read it another way:</strong> '+safe(card.reversed||"Consider how the theme might be delayed, internalised, blocked or expressed in excess.")+' Compare this alternative with the first interpretation instead of assuming either must be correct.</p><p><strong>Turn insight into reflection:</strong> Write one specific observation, one alternative explanation and one small action within your control. A card cannot establish another person’s private thoughts or guarantee an outcome.</p><p><strong>Try it:</strong> What detail in the card image stands out to you, and how does that detail change your interpretation of the question?</p></div></article>';
+    const deckSpecific=isMarseille&&card.suit!=="Major Arcana"?"This Marseille pip card is read through number "+card.number+", suit "+card.suit+" and the arrangement of its emblems. "+(card.upright||"Study the number-and-suit combination in the context of your question."):(card.upright||"Consider the traditional card themes in the context of your question.");
+    worked.innerHTML='<article class="about-section"><div class="about-symbol">✦</div><div><h2>Worked Example: Applying '+safe(card.name)+'</h2><p><strong>Practice question:</strong> “What deserves my attention in this situation?”</p><p><strong>First, name the theme:</strong> '+safe(card.name)+' is associated here with '+safe(keywords||card.category||"traditional themes")+'. Treat these as interpretive starting points, not facts about your future.</p><p><strong>One possible interpretation:</strong> '+safe(deckSpecific)+' Ask what real situation or behaviour this might describe, and what evidence supports that connection.</p><p><strong>Read it another way:</strong> '+safe(card.reversed||"Consider how the theme might be delayed, internalised, blocked or expressed in excess.")+' Compare this alternative with the first interpretation instead of assuming either must be correct.</p><p><strong>Turn insight into reflection:</strong> Write one specific observation, one alternative explanation and one small action within your control. A card cannot establish another person’s private thoughts or guarantee an outcome.</p><p><strong>Try it:</strong> What detail in the card image stands out to you, and how does that detail change your interpretation of the question?</p></div></article>';
     const grid=main.querySelector(".tool-grid");
     if(grid) grid.insertAdjacentElement("afterend",worked); else main.appendChild(worked);
   }
   let related=[];
   if(index>=0 && index<22){
-    related=[source[index-1],source[index+1],source[Math.max(0,index-2)],source[Math.min(21,index+2)]];
+    related=[source[index-1],source[index+1],source[index-2],source[index+2]];
   }else{
     const suit=isMarseille?card.suit:card.category;
-    related=source.filter(c=>c!==card && (isMarseille?c.suit:c.category)===suit).slice(Math.max(0,index-2),index+3);
-    if(related.length<4)related=source.filter(c=>c!==card && (isMarseille?c.suit:c.category)===suit).slice(0,4);
+    const suitCards=source.filter(c=>(isMarseille?c.suit:c.category)===suit);
+    const suitIndex=suitCards.indexOf(card);
+    related=[suitCards[suitIndex-1],suitCards[suitIndex+1],suitCards[suitIndex-2],suitCards[suitIndex+2]];
   }
-  related=related.filter(Boolean).filter((c,i,a)=>a.findIndex(x=>x.name===c.name)===i).slice(0,4);
+  related=related.filter(c=>c&&c!==card).filter((c,i,a)=>a.findIndex(x=>x.name===c.name)===i).slice(0,4);
   if(!related.length)return;
   const section=document.createElement("section");
   section.className="about-content related-card-links";
