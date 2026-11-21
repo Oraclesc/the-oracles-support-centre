@@ -1,4 +1,4 @@
-// Site-wide navigation and internal-link audit. Runs before the Pages artifact is uploaded.
+// Site-wide navigation, footer, monetisation and internal-link audit.
 const fs = require("fs");
 const path = require("path");
 const root = path.join(__dirname, "..");
@@ -9,10 +9,14 @@ const navItems = [
   ["tarot-portal.html", "Tarot Portal"], ["tarot-lab.html", "Tarot Lab"],
   ["shop.html", "Tarot Shop"], ["about.html", "About"], ["contact.html", "Contact"]
 ];
-let normalised = 0;
+const legalFooter = '<div class="footer-links footer-small"><a href="privacy.html">Privacy Policy</a><a href="disclaimer.html">Disclaimer</a><a href="terms.html">Terms</a><a href="cookies.html">Cookie Policy</a><a href="cookies.html#managing-cookies" id="privacy-settings-link">Privacy &amp; cookie settings</a></div>';
+const analyticsTag = '<script async src="https://www.googletagmanager.com/gtag/js?id=G-6YM3CKSZLR"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){window.dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-6YM3CKSZLR");</script>';
+const adsTag = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2517381819553976" crossorigin="anonymous"></script>';
+let normalised = 0, footerNormalised = 0, adsTagged = 0, analyticsTagged = 0, pagesWithoutFooter = 0;
 for (const file of htmlFiles) {
   const full = path.join(root, file);
   let html = fs.readFileSync(full, "utf8");
+  const original = html;
   const start = html.indexOf("<nav");
   const end = start < 0 ? -1 : html.indexOf("</nav>", start);
   if (start < 0 || end < 0) throw new Error("Missing primary navigation in " + file);
@@ -21,9 +25,34 @@ for (const file of htmlFiles) {
   ).join("") + "</nav>";
   if (html.slice(start, end + 6) !== nav) {
     html = html.slice(0, start) + nav + html.slice(end + 6);
-    fs.writeFileSync(full, html);
     normalised++;
   }
+  if (!html.includes("googletagmanager.com/gtag/js?id=G-6YM3CKSZLR")) {
+    if (!html.includes("</head>")) throw new Error("Missing head element in " + file);
+    html = html.replace("</head>", analyticsTag + "</head>");
+    analyticsTagged++;
+  }
+  if (!html.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2517381819553976")) {
+    if (!html.includes("</head>")) throw new Error("Missing head element in " + file);
+    html = html.replace("</head>", adsTag + "</head>");
+    adsTagged++;
+  }
+  const footerStart = html.indexOf("<footer");
+  const footerEnd = footerStart < 0 ? -1 : html.indexOf("</footer>", footerStart);
+  if (footerStart < 0 || footerEnd < 0) {
+    pagesWithoutFooter++;
+  } else {
+    const footer = html.slice(footerStart, footerEnd + 9);
+    const small = /<div class="footer-links footer-small">[\s\S]*?<\/div>/;
+    const updatedFooter = small.test(footer)
+      ? footer.replace(small, legalFooter)
+      : footer.replace("</footer>", legalFooter + "</footer>");
+    if (updatedFooter !== footer) {
+      html = html.slice(0, footerStart) + updatedFooter + html.slice(footerEnd + 9);
+      footerNormalised++;
+    }
+  }
+  if (html !== original) fs.writeFileSync(full, html);
 }
 const errors = [];
 function checkTarget(source, raw, kind) {
@@ -57,13 +86,21 @@ for (const item of sitemapPaths) {
   seen.add(item);
   if (item && !fs.existsSync(path.join(root, item))) errors.push("Sitemap URL has no file: " + item);
 }
+if (!seen.has("")) errors.push("Homepage root URL is missing from sitemap.");
 for (const file of htmlFiles) {
   if (file === "index.html") continue;
   if (!seen.has(file)) errors.push("Indexable HTML page missing from sitemap: " + file);
+}
+for (const match of sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(match[1]) || Number.isNaN(Date.parse(match[1])))
+    errors.push("Invalid sitemap lastmod date: " + match[1]);
 }
 if (errors.length) {
   console.error("Site audit found " + errors.length + " issue(s):");
   for (const issue of errors) console.error(" - " + issue);
   process.exit(1);
 }
-console.log("Site audit passed: " + htmlFiles.length + " HTML pages; " + sitemapPaths.length + " sitemap URLs; " + normalised + " navigation bars standardised; internal links and local assets resolved.");
+console.log("Site audit passed: " + htmlFiles.length + " HTML pages; " + sitemapPaths.length + " sitemap URLs; " +
+  normalised + " navigation bars standardised; " + footerNormalised + " legal footers standardised; " +
+  analyticsTagged + " analytics tags and " + adsTagged + " AdSense tags added; " +
+  pagesWithoutFooter + " pages without a footer; internal links, local assets and sitemap resolved.");
