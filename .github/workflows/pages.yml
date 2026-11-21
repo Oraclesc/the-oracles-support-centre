@@ -39,6 +39,8 @@ jobs:
 
       - name: Standardise navigation and audit internal links, assets and sitemap
         run: node scripts/site-audit.js
+      - name: Validate inline scripts after site-wide accessibility and consent updates
+        run: node scripts/inline-script-audit.js
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
