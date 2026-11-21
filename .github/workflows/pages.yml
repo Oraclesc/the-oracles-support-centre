@@ -119,4 +119,6 @@ jobs:
           fetch_check "https://oraclesupportcentre.com/tarot-school.html" "/tmp/school.html" "A Simple Weekly Study Routine"
           fetch_check "https://oraclesupportcentre.com/horoscope.html" "/tmp/horoscope.html" "Powered by FreeHoroscopeAPI"
           fetch_check "https://oraclesupportcentre.com/tools.html" "/tmp/tools.html" "Daily Horoscope"
-          echo "Live homepage, Rider–Waite and Marseille guides, learning hub, horoscope attribution, Tools directory, Daily Quest and ads.txt all passed."
+          fetch_check "https://oraclesupportcentre.com/tarot-lab.html" "/tmp/lab.html" "Saved readings"
+          fetch_check "https://oraclesupportcentre.com/tarot-school.html" "/tmp/school-accessibility.html" "Skip to main content"
+          echo "Live homepage, card guides, learning hub, horoscope, Tools directory, Tarot Lab, sitewide skip links, Daily Quest and ads.txt all passed."
