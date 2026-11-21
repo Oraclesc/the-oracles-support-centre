@@ -191,10 +191,12 @@ const addSeoBreadcrumbs=()=>{
   if(!main || main.querySelector(".seo-breadcrumbs"))return;
   const page=(location.pathname.split("/").pop()||"index.html").toLowerCase();
   if(page==="index.html")return;
-  const title=(document.querySelector("h1")?.textContent||document.title.split("|")[0]||"Tarot").replace(/\\s+/g," ").trim();
-  const card=/^(the-|ace-of-|two-of-|three-of-|four-of-|five-of-|six-of-|seven-of-|eight-of-|nine-of-|ten-of-|page-of-|knight-of-|queen-of-|king-of-).+\\.html$/.test(page);
+  const title=(document.querySelector("h1")?.textContent||document.title.split("|")[0]||"Tarot").replace(/\s+/g," ").trim();
+  const isMarseille=/^marseille-.+\.html$/.test(page);
+  const card=isMarseille || /^(the-|ace-of-|two-of-|three-of-|four-of-|five-of-|six-of-|seven-of-|eight-of-|nine-of-|ten-of-|page-of-|knight-of-|queen-of-|king-of-).+\.html$/.test(page) || ["strength.html","justice.html","death.html","temperance.html","judgement.html","wheel-of-fortune.html"].includes(page);
   let parent=["Tarot","tarot-portal.html","Tarot Portal"];
-  if(card)parent=["Tarot Cards","cards.html","Tarot Cards"];
+  if(isMarseille)parent=["Tarot de Marseille","cards.html?deck=marseille","Tarot de Marseille"];
+  else if(card)parent=["Tarot Cards","cards.html","Tarot Cards"];
   else if(/love|relationship/i.test(page+" "+title))parent=["Love Tarot","tarot-love.html","Love Tarot"];
   else if(/career|money/i.test(page+" "+title))parent=["Career Tarot","tarot-career.html","Career Tarot"];
   else if(/journal|practice|school|learn|guide|question|spread|symbolism|numerology|history|ethics|myth|intuition/i.test(page+" "+title))parent=["Tarot Guides","guides.html","Tarot Guides"];
