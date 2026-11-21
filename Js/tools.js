@@ -120,8 +120,8 @@ const addContextualLinks=()=>{
   const excluded=["index.html","tarot-portal.html","tarot-library.html","guides.html","tools.html","tarot-lab.html","tarot-school.html"];
   if(excluded.includes(page))return;
 
-  const marseillePages=/^marseille-.+\\.html$/.test(page);
-  const cardPages=marseillePages || /^(the-|ace-of-|two-of-|three-of-|four-of-|five-of-|six-of-|seven-of-|eight-of-|nine-of-|ten-of-|page-of-|knight-of-|queen-of-|king-of-).+\\.html$/.test(page);
+  const marseillePages=/^marseille-.+\.html$/.test(page);
+  const cardPages=marseillePages || /^(the-|ace-of-|two-of-|three-of-|four-of-|five-of-|six-of-|seven-of-|eight-of-|nine-of-|ten-of-|page-of-|knight-of-|queen-of-|king-of-).+\.html$/.test(page);
   const majorPages=["major-arcana.html","the-fool.html","the-magician.html","the-high-priestess.html","the-empress.html","the-emperor.html","the-hierophant.html","the-lovers.html","the-chariot.html","strength.html","the-hermit.html","wheel-of-fortune.html","justice.html","the-hanged-man.html","death.html","temperance.html","the-devil.html","the-tower.html","the-star.html","the-moon.html","the-sun.html","judgement.html","the-world.html"];
   const suitPages=["minor-arcana.html","wands.html","cups.html","swords.html","pentacles.html"];
 
