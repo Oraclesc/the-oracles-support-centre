@@ -22,6 +22,10 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/home-v2-final.css">
 <style>
+.skip-link{position:fixed;top:10px;left:10px;z-index:100001;transform:translateY(-160%);padding:12px 18px;border-radius:8px;background:#f4df9b;color:#1b1023;font-weight:700;text-decoration:none}
+.skip-link:focus{transform:translateY(0);outline:3px solid #fff;outline-offset:3px}
+#daily-quest-popup{overscroll-behavior:contain}
+#daily-quest-popup .daily-quest-popup-card{max-height:calc(100vh - 40px);overflow-y:auto}
 body.welcome-open{overflow:hidden}
 #welcome-screen{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;overflow-y:auto;padding:28px 18px;background:radial-gradient(ellipse at 50% 37%,rgba(89,52,126,.48),transparent 44%),radial-gradient(ellipse at 80% 90%,rgba(74,42,105,.2),transparent 40%),linear-gradient(145deg,#1a0b2b 0%,#0d0618 52%,#07030e 100%);color:#fff;text-align:center;opacity:1;visibility:visible;transition:opacity .35s ease,visibility .35s ease}
 #welcome-screen.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
@@ -214,6 +218,7 @@ body.welcome-open{overflow:hidden}
 <p class="footer-copy">© 2026 The Oracle's Support Centre<br>All Rights Reserved.</p>
 </footer>
 </div>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div id="daily-quest-popup" hidden>
   <section class="daily-quest-popup-card" role="dialog" aria-modal="true" aria-labelledby="daily-quest-popup-title" aria-describedby="daily-quest-popup-description">
     <button type="button" class="daily-quest-close" id="daily-quest-popup-close" aria-label="Close daily quest message">×</button>
