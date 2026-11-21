@@ -17,6 +17,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      deployment_failed: ${{ steps.deployment.outcome == 'failure' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -41,10 +43,11 @@ jobs:
       - name: Deploy site
         id: deployment
         uses: actions/deploy-pages@v5
+        continue-on-error: true
 
   deploy-retry-1:
     needs: deploy
-    if: always() && needs.deploy.result == 'failure'
+    if: always() && needs.deploy.outputs.deployment_failed == 'true'
     runs-on: ubuntu-latest
     permissions:
       pages: write
